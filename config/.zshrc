@@ -15,7 +15,7 @@ path=(
     /sbin
     $HOME/bin
     $HOME/.local/bin
-    $HOME/.npm-global/bin
+    $HOME/.npm/bin
     $HOME/go/bin
     $JAVA_HOME/bin
     $HOME/.nvm/versions/node/v22.11.0/bin
@@ -63,7 +63,7 @@ alias yss="yay -Ss"
 alias yr="yay -R"
 
 # Other
-alias netTest="echo '\nПинг до google.com:\n' && ping -c 5 google.com && echo '\n-----\n\nТрассировка до google.com:\n' && traceroute google.com && echo '\n-----\n\nСкорость до Selectel (Saint Petersburg, Russia) [167.91 km]:' && speedtest -s 16125"
+alias netTest="echo '\nPing google.com:\n' && ping -c 5 google.com && echo '\n-----\n\nTraceroute google.com:\n' && traceroute google.com && echo '\n-----\n\nSpeed test Selectel (Saint Petersburg, Russia) [167.91 km]:' && speedtest -s 16125"
 alias free_sdd="df -h /dev/sda2"
 alias ir="input-remapper-control --command stop-all && input-remapper-control --command autoload"
 alias ir_stop="input-remapper-control --command stop-all"

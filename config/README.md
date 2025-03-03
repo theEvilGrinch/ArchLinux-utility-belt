@@ -1,4 +1,4 @@
-## Configuration Files
+# Configuration Files
 
 ## Shell Configuration
 - `.zshrc` - ZSH shell configuration with the following features:
@@ -10,6 +10,11 @@
   - Development tools configuration (NPM, Node.js)
   - Custom utility aliases
   - Advanced ZSH completion settings
+
+## NPM Configuration
+- `.npmrc` - NPM global configuration:
+  - Saves exact package versions 
+  - Sets custom global packages location
 
 ## 🛠️ Installation
 
@@ -23,6 +28,15 @@ ln -s /path/to/repo/config/.zshrc ~/.zshrc
 
 # Reload shell configuration
 source ~/.zshrc
+```
+
+### NPM Configuration
+```bash
+# Backup existing configuration if any
+cp ~/.npmrc ~/.npmrc.backup
+
+# Create symbolic link
+ln -s /path/to/repo/config/.npmrc ~/.npmrc
 ```
 
 ## 🔧 Prerequisites
