@@ -3,7 +3,7 @@ export LANG=en_US.UTF-8
 export EDITOR=mcedit
 export GPG_TTY=$(tty)
 export NVM_DIR="$HOME/.nvm"
-export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
+export JAVA_HOME=$(readlink -f /usr/lib/jvm/default)
 export GOPATH="/home/andrew/go"
 
 # =====
@@ -18,7 +18,7 @@ path=(
     $HOME/.npm/bin
     $HOME/go/bin
     $JAVA_HOME/bin
-    $HOME/.nvm/versions/node/v22.11.0/bin
+    $HOME/.nvm/versions/node/v23.6.0/bin
     /usr/bin/site_perl
     /usr/bin/vendor_perl
     /usr/bin/core_perl
@@ -40,7 +40,7 @@ ZSH_THEME="jonathan"
 plugins=(git sudo web-search)
 source $ZSH/oh-my-zsh.sh
 
-# =====
+# Sysytem
 alias zconf="mcedit ~/.zshrc"
 alias clear_pm_cache="sudo paccache -rk1 && sudo paccache -ruk0 && yay -Scc --noconfirm"
 alias clear_swap="sudo swapoff -a && sudo swapon -a"
@@ -83,7 +83,6 @@ alias nusd="npm uninstall --save-dev"
 alias cleancache_npm="npm cache verify --force && npm cache clean --force"
 alias nu="npm update"
 
-# =====
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 unsetopt nomatch

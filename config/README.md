@@ -10,13 +10,23 @@
   - Development tools configuration (NPM, Node.js)
   - Custom utility aliases
   - Advanced ZSH completion settings
+  - Improved command history behavior
+  - Enhanced key bindings for better usability
+
+## Build Configuration
+- `.makepkg.conf` - Optimized build configuration for Arch Linux:
+  - Uses `-march=native` and `-mtune=native` for better performance
+  - Optimizations for C, C++, and Rust
+  - Security enhancements including `-fstack-clash-protection` and `-fcf-protection`
+  - Auto-detection of available CPU cores for parallel compilation
+  - Placed in `~/.makepkg.conf` to allow user-specific customization
 
 ## NPM Configuration
 - `.npmrc` - NPM global configuration:
-  - Saves exact package versions 
+  - Saves exact package versions
   - Sets custom global packages location
 
-## 🛠️ Installation
+## ⚒️ Installation
 
 ### Shell Configuration
 ```bash
@@ -30,6 +40,15 @@ ln -s /path/to/repo/config/.zshrc ~/.zshrc
 source ~/.zshrc
 ```
 
+### Build Configuration
+```bash
+# Backup existing configuration
+cp ~/.makepkg.conf ~/.makepkg.conf.backup
+
+# Copy new configuration
+cp /path/to/repo/config/.makepkg.conf ~/.makepkg.conf
+```
+
 ### NPM Configuration
 ```bash
 # Backup existing configuration if any
@@ -39,7 +58,7 @@ cp ~/.npmrc ~/.npmrc.backup
 ln -s /path/to/repo/config/.npmrc ~/.npmrc
 ```
 
-## 🔧 Prerequisites
+## 🛠 Prerequisites
 
 The configurations and scripts assume you have the following software installed:
 - Arch Linux
@@ -50,7 +69,7 @@ The configurations and scripts assume you have the following software installed:
 - Midnight Commander (mc)
 - input-remapper
 
-## 📋 Feature Highlights
+## 🗉 Feature Highlights
 
 ### System Maintenance
 - Mirror list update utility
@@ -81,6 +100,7 @@ Most configurations can be modified by editing the respective files:
 - Shell aliases: Edit `.zshrc` and add/modify aliases
 - Environment variables: Adjust paths in `.zshrc`
 - Theme settings: Change `ZSH_THEME` in `.zshrc`
+- Build flags: Adjust optimization settings in `.makepkg.conf`
 
 ## 🚀 Usage Examples
 
@@ -123,10 +143,6 @@ cleancache_npm
 - Some aliases assume specific software is installed
 - Regular maintenance commands are simplified through aliases
 - Backup your existing configurations before using these
-
-## 🔄 Updates
-
-This repository is regularly updated with new configurations and utilities as my system evolves.
 
 ## 📄 License
 
