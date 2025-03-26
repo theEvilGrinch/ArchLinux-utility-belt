@@ -1,0 +1,47 @@
+# $HOME/.zfunc/fn_convert_media
+# Usage: fn_convert_media <input_file> <output_extension> "<ffmpeg_options>"
+
+fn_convert_media() {
+  local input_file="$1"       # Path to the input file
+  local output_ext="$2"       # Desired output extension (e.g., mkv)
+  local ffmpeg_options="$3"   # Optional FFmpeg options as a single string
+
+  # Check if the input file exists
+  if [[ ! -f "$input_file" ]]; then
+    echo "Error: The file '$input_file' does not exist."
+    return 1
+  fi
+
+  # Check if the output extension is specified
+  if [[ -z "$output_ext" ]]; then
+    echo "Error: No output file extension specified."
+    return 1
+  fi
+
+  # Map the extension to the FFmpeg muxer name
+  local format
+  case "${output_ext#.}" in
+    mkv) format="matroska" ;;
+    aac) format="adts" ;;
+    m4a) format="ipod" ;;
+    *) format="${output_ext#.}" ;;
+  esac
+
+  # Check if the format is supported by FFmpeg
+  if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
+    echo "Error: The format '$format' is not supported by FFmpeg."
+    return 1
+  fi
+
+  # Generate the output file name by replacing the input file's extension
+  local output_file="${input_file%.*}.$output_ext"
+
+  # Check if the output file already exists
+  if [[ -f "$output_file" ]]; then
+    echo "Error: The file '$output_file' already exists. Delete it or choose a different name."
+    return 1
+  fi
+
+  # Run the FFmpeg command using eval to properly handle the options string
+  eval ffmpeg -i "$input_file" $ffmpeg_options "$output_file"
+}
