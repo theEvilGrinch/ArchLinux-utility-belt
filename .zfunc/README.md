@@ -12,7 +12,7 @@ This directory contains ZSH functions that provide additional functionality and 
   - WEBP: cwebp (provided by libwebp package)
   - SVG: svgo
   - Other formats: magick (provided by imagemagick package)<br>
-  Usage: fn_optimize_images <source_folder> <target_folder>
+**Usage**: fn_optimize_images <source_folder> <target_folder>
 - **`fn_convert_media`**: Convert audio or video files into specified format using FFmpeg. Depends on FFmpeg being installed in system. Accepts up to three arguments: path to input audio or video file, desired output extension (e.g., `mkv`, `aac`), and optional FFmpeg options passed as single string (e.g., `"-c:a copy"`). Function validates input file existence, checks output format support in FFmpeg, and generates output filename by replacing input extension with specified one.
 <br>
 **Usage**: fn_convert_media <input_file> <output_extension> "<ffmpeg_options>"
@@ -21,7 +21,12 @@ This directory contains ZSH functions that provide additional functionality and 
 `fn_convert_media ~/audiofolder/audiofile.mp3 aac` - Converts MP3 file to AAC format.<br>
 `fn_convert_media ~/videofolder/videofile.mp4 mkv "-c:v h264_nvenc -c:a copy"` - Re-encodes MP4 video to MKV using NVIDIA hardware acceleration for video and copying audio stream without re-encoding.
 <br>
-**Supported formats**:
+- **`fn_convert_media_batch`**: Convert multiple audio or video files from input folder into specified format using FFmpeg. Depends on FFmpeg being installed in system. Accepts up to four arguments: path to input folder with audio or video files, path to output folder for converted files, desired output extension (e.g., `mkv`, `aac`), and optional FFmpeg options passed as single string (e.g., `"-c:a copy"`). Function validates input folder existence, creates output folder if needed, and processes all files in input folder.<br>
+**Usage**: fn_convert_media_batch <input_folder> <output_folder> <output_extension> "<ffmpeg_options>"<br>
+**Examples**:<br>
+`fn_convert_media_batch ~/audiofolder ~/converted aac` - Converts all files in `~/audiofolder` to AAC format and saves them in `~/converted`.<br>
+`fn_convert_media_batch ~/videofolder ~/converted mkv "-c:v h264_nvenc -c:a copy"` - Re-encodes all video files in `~/videofolder` to MKV using NVIDIA hardware acceleration for video and copying audio stream, saving results in `~/converted`.<br>
+**Supported formats for `fn_convert_media_batch` and `fn_convert_media`**:
   - audio: `mp3`, `aac`, `m4a`, `flac`, `wav`, `ogg`, `opus`.
   - video: `mp4`, `mkv`, `avi`, `mov`, `webm`, `flv`, `wmv`.
 

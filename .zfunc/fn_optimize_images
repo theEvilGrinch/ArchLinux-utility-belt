@@ -1,4 +1,5 @@
 # $HOME/.zfunc/fn_optimize_images
+# Usage: fn_optimize_images <source_folder> <target_folder>
 
 fn_optimize_images() {
   src_dir="$1"

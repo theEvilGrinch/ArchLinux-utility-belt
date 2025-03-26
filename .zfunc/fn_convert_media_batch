@@ -1,0 +1,64 @@
+# $HOME/.zfunc/fn_convert_media_batch
+# Usage: fn_convert_media_batch <input_folder> <output_folder> <output_extension> "<ffmpeg_options>"
+
+fn_convert_media_batch() {
+  local input_folder="$1"      # Path to the input folder
+  local output_folder="$2"     # Path to the output folder
+  local output_ext="$3"        # Desired output extension (e.g., mkv)
+  local ffmpeg_options="$4"    # Optional FFmpeg options as a single string
+
+  # Check if the input folder exists
+  if [[ ! -d "$input_folder" ]]; then
+    echo "Error: The folder '$input_folder' does not exist.\nUsage: fn_convert_media_batch <input_folder> <output_folder> <output_extension> \"<ffmpeg_options>\""
+    return 1
+  fi
+
+  # Check if the output folder exists, create it if not
+  if [[ ! -d "$output_folder" ]]; then
+    mkdir -p "$output_folder" || {
+      echo "Error: Failed to create output folder '$output_folder'."
+      return 1
+    }
+  fi
+
+  # Check if the output extension is specified
+  if [[ -z "$output_ext" ]]; then
+    echo "Error: No output file extension specified."
+    return 1
+  fi
+
+  # Map the extension to the FFmpeg muxer name
+  local format
+  case "${output_ext#.}" in
+    mkv) format="matroska" ;;
+    aac) format="adts" ;;
+    m4a) format="ipod" ;;
+    *) format="${output_ext#.}" ;;
+  esac
+
+  # Check if the format is supported by FFmpeg
+  if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
+    echo "Error: The format '$format' is not supported by FFmpeg."
+    return 1
+  fi
+
+  # Process each file in the input folder
+  for input_file in "$input_folder"/*; do
+    if [[ -f "$input_file" ]]; then
+      # Generate the output file name
+      local base_name=$(basename "$input_file" | sed 's/\.[^.]*$//')
+      local output_file="$output_folder/$base_name.$output_ext"
+
+      # Check if the output file already exists
+      if [[ -f "$output_file" ]]; then
+        echo "Skipping '$input_file': Output file '$output_file' already exists."
+        continue
+      fi
+
+      # Run the FFmpeg command using eval to handle the options string
+      eval ffmpeg -i "$input_file" $ffmpeg_options "$output_file" || {
+        echo "Error: Failed to convert '$input_file'."
+      }
+    fi
+  done
+}

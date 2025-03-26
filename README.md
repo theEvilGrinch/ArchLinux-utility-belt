@@ -28,7 +28,8 @@ ArchLinux-utility-belt/
 │   ├── fn_youtube_video_translate  # Video translation workflow
 │   ├── fn_optimize_images      # Image optimization script
 │   ├── fn_new_article_for_sale # Create new custom article file
-│   └── fn_convert_media        # Convert audio or video files
+│   ├── fn_convert_media        # Convert audio or video file
+│   └── fn_convert_media_batch  # Convert multiple audio or video files from input folder
 ├── other/                      # IDE themes and settings
 │   ├── One_Dark_Webstorm_theme.icls
 │   └── WebstormAllSettings_03.2025.zip

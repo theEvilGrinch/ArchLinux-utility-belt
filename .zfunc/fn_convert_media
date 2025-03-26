@@ -8,7 +8,7 @@ fn_convert_media() {
 
   # Check if the input file exists
   if [[ ! -f "$input_file" ]]; then
-    echo "Error: The file '$input_file' does not exist."
+    echo "Error: The file '$input_file' does not exist.\nUsage: fn_convert_media <input_file> <output_extension> \"<ffmpeg_options>\""
     return 1
   fi
 
