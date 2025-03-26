@@ -1,4 +1,4 @@
-# web_search from terminal
+# $HOME/.oh-my-zsh/plugins/web-search/web-search.plugin.zsh
 
 function web_search() {
   emulate -L zsh

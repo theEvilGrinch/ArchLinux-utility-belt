@@ -9,8 +9,6 @@ fn_youtube_video_translate() {
 	local output_video="$HOME/videos/translate/${project_name}"
 
 	mkdir "$project_path" & echo "Project dir created" &&
-	touch "${file_name}_description.txt" & echo "\n description.txt created" &&
-	subl "${file_name}_description.txt" && echo "\n subl open" && 
 	vot-cli --output="$project_path" --output-file="${project_name}.mp3" "$video_url" && echo "\n vot-cli ready" &&
 	yt-dlp -o "${file_name}.mp4" --referer "https://www.youtube.com" --force-generic-extractor --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" --concurrent-fragments 24 --cookies-from-browser firefox -f "bestvideo[ext=mp4]" "$video_url" && echo "\n yt-dlp ready" &&
 	ffmpeg -i "${file_name}.mp4" -hwaccel cuda -i "${file_name}.mp3" -c:v copy -map 0:v:0 -map 1:a:0 -filter:a aresample=async=1 -shortest "${output_video}_final.mp4"

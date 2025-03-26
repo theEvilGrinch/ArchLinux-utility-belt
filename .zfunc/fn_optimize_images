@@ -1,0 +1,63 @@
+fn_optimize_images() {
+  src_dir="$1"
+  dest_dir="$2"
+  
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: fn_optimize_images <source_folder> <target_folder>"
+    return 1
+  fi
+
+  if [ ! -d "$src_dir" ]; then
+    echo "Error: folder '$src_dir' does not exist"
+    return 1
+  fi
+  
+  for util in pngquant jpegoptim cwebp svgo magick; do
+    if ! command -v "$util" >/dev/null 2>&1; then
+      echo "Error: utility '$util' is not installed"
+      return 1
+    fi
+  done
+  
+  mkdir -p "$dest_dir"
+
+  for file in "$src_dir"/*.{png,jpg,jpeg,webp,svg,avif}; do
+    if [ ! -f "$file" ]; then
+      continue
+    fi
+
+    filename=$(basename "$file")
+    extension="${filename##*.}"
+    output_file="$dest_dir/$filename"
+
+    echo "Processing $filename ($extension)..."
+    case "$extension" in
+      png)
+        pngquant --quality 65-80 "$file" --output "$output_file" || { echo "Error: $filename (pngquant)"; continue; }
+        echo "Optimized: $filename (pngquant)"
+        ;;
+      jpg|jpeg)
+        jpegoptim --max=60 --strip-all "$file" --dest "$dest_dir" || { echo "Error: $filename (jpegoptim)"; continue; }
+        echo "Optimized: $filename (jpegoptim)"
+        ;;
+      webp)
+        cwebp -q 60 -m 4 "$file" -o "$output_file" || { echo "Error: $filename (cwebp)"; continue; }
+        echo "Optimized: $filename (cwebp)"
+        ;;
+      svg)
+        svgo --input "$file" --output "$output_file" || { echo "Error: $filename (svgo)"; continue; }
+        echo "Optimized: $filename (svgo)"
+        ;;
+      avif)
+        magick "$file" -quality 50 "$output_file" || { echo "Error: $filename (convert)"; continue; }
+        echo "Optimized: $filename (convert)"
+        ;;
+      *)
+        echo "Skipped format: $filename"
+        continue
+        ;;
+    esac
+  done
+
+  echo "Optimization completed!"
+}
