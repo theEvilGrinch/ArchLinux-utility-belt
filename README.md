@@ -32,6 +32,7 @@ ArchLinux-utility-belt/
 │   └── fn_convert_media_batch  # Convert multiple audio or video files from input folder
 ├── other/                      # IDE themes and settings
 │   ├── One_Dark_Webstorm_theme.icls
+│   ├── yay.tar.gz              # AUR helper utility for Arch Linux
 │   └── WebstormAllSettings_03.2025.zip
 ├── LICENSE                     # MIT License
 └── README.md                   # Main documentation
