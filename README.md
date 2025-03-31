@@ -34,6 +34,7 @@ ArchLinux-utility-belt/
 │   ├── desktop-file.desktop    # Template for desktop entries
 │   ├── exemple-system.service  # Systemd unit template (system-wide)
 │   ├── example-user.service    # Systemd unit template (user)
+│   ├── example-timer.timer     # Systemd timer unit template
 │   ├── git-commit-template_ru.txt # Git commit message template (with Russian comments)
 │   ├── libreoffice.ott         # LibreOffice template document
 │   └── new-article-for-sale.md # Markdown template for marketplace posts

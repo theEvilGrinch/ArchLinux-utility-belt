@@ -19,6 +19,7 @@ This directory contains standardized templates that streamline the creation of:
 - `desktop-file.desktop` - Template for creating desktop entries in accordance with the XDG Desktop Entry specification
 - `example-system.service` - System-wide systemd service unit template with comprehensive comments
 - `example-user.service` - User-level systemd service unit template with explanatory annotations
+- `example-timer.timer` - Systemd timer unit template with scheduling examples and best practices
 
 ### Development Workflow
 - `git-commit-template_ru.txt` - Structured git commit message template with Russian annotations
