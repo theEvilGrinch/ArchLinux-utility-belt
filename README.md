@@ -30,6 +30,13 @@ ArchLinux-utility-belt/
 │   ├── fn_new_article_for_sale # Create new custom article file
 │   ├── fn_convert_media        # Convert audio or video file
 │   └── fn_convert_media_batch  # Convert multiple audio or video files from input folder
+├── templates/
+│   ├── desktop-file.desktop    # Template for desktop entries
+│   ├── exemple-system.service  # Systemd unit template (system-wide)
+│   ├── example-user.service    # Systemd unit template (user)
+│   ├── git-commit-template_ru.txt # Git commit message template (with Russian comments)
+│   ├── libreoffice.ott         # LibreOffice template document
+│   └── new-article-for-sale.md # Markdown template for marketplace posts
 ├── other/                      # IDE themes and settings
 │   ├── One_Dark_Webstorm_theme.icls
 │   ├── yay.tar.gz              # AUR helper utility for Arch Linux
@@ -52,6 +59,7 @@ Each directory contains dedicated documentation:
 - `fonts/README.md`: Font installation and usage
 - `.zfunc/README.md`: ZSH function documentation
 - `other/README.md`: IDE settings and themes
+- `templates/README.md`: Template files documentation
 
 ## ⚠️ Notes
 This is a personal configuration repository tailored to my specific needs and preferences. While you're welcome to use and adapt these configurations, please review them carefully before applying them to your system.

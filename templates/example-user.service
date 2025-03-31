@@ -1,0 +1,15 @@
+# $HOME/.config/systemd/user/example-user.service
+
+[Unit]
+Description=Example User Service (e.g., Script)       # Service description
+After=network-online.target                           # Optional network dependency
+
+[Service]
+Type=simple                                           # Default type for scripts
+ExecStart=/usr/bin/zsh %h/scripts/my_script.zsh       # %h = user's home directory
+Restart=on-failure                                    # Auto-restart on failure
+Environment="DISPLAY=:0"                              # For GUI apps (optional)
+WorkingDirectory=%h/project                           # Set working directory
+
+[Install]
+WantedBy=default.target                               # Enable for user session
