@@ -52,6 +52,14 @@ This directory contains configuration files for system components and applicatio
   - Opens the default browser with the query
 - **`web-search.plugin.zsh_default`**: Default version of the web search plugin for reference or alternative use.
 
+### Apache Configuration
+- **`.htaccess`**: Comprehensive Apache server configuration:
+  - Security headers and rules (CSP, HSTS, X-Frame-Options)
+  - Performance optimization through caching and compression
+  - HTTPS and www/non-www redirects
+  - MIME type definitions and file access controls
+  - Customized error document handling
+
 ## 🛠 Prerequisites
 - Arch Linux (or derivatives)
 - ZSH shell with Oh-My-ZSH

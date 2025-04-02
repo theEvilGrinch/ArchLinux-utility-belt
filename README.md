@@ -16,6 +16,7 @@ ArchLinux-utility-belt/
 │   ├── 20-intel.conf           # Xorg Intel GPU configuration
 │   ├── 99-custom.conf          # Kernel parameters optimization
 │   ├── .makepkg.conf           # Build system configuration
+│   ├── .htaccess               # Apache server configuration with security and performance settings
 │   ├── .npmrc                  # NPM global settings
 │   ├── .zshrc                  # Main ZSH configuration
 │   ├── .zshrc_default          # Default Oh-My-ZSH config
