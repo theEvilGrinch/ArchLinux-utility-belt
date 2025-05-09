@@ -20,6 +20,12 @@ Options -Indexes
     Require all denied
 </FilesMatch>
 
+<Files "service-worker.js">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</Files>
+
 # Security headers
 Header set X-Content-Type-Options "nosniff"
 Header set X-Frame-Options "SAMEORIGIN"

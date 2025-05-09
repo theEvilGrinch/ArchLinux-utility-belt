@@ -2,6 +2,19 @@
 
 This directory contains configuration files for system components and applications tailored to an Arch Linux environment. These files are designed for my workflow but can be adapted to other setups with appropriate modifications.
 
+## Table of Contents
+- [Configuration Files](#configuration-files)
+  - [Shell Configuration](#shell-configuration)
+  - [Build Configuration](#build-configuration)
+  - [NPM Configuration](#npm-configuration)
+  - [System Configuration](#system-configuration)
+  - [Boot Loader Configuration](#boot-loader-configuration)
+  - [Web Search Plugin](#web-search-plugin)
+  - [Apache Configuration](#apache-configuration)
+- [🛠 Prerequisites](#-prerequisites)
+- [⚠️ Notes](#️-notes)
+- [📄 License](#-license)
+
 ## Configuration Files
 
 ### Shell Configuration
@@ -34,17 +47,27 @@ This directory contains configuration files for system components and applicatio
   - Reduced swap usage and optimized disk write behavior
   - Address Space Layout Randomization (ASLR) and kernel pointer hiding
   - Network performance tweaks (e.g., TIME_WAIT socket reuse, fq_codel)
-
+- **`oomd.conf`**: systemd-oomd configuration for out-of-memory management:
+  - Limits swap usage and memory pressure
+  - Customizes OOM handling thresholds and durations
 - **`20-intel.conf`**: Xorg configuration for Intel integrated GPUs:
   - Enables DRI3 and SNA acceleration
   - Optional settings for tear-free rendering (commented by default)
-
 - **`mkinitcpio.conf`**: Initramfs generation configuration:
   - Tailored for Nvidia GPU (modules: `nvidia`, `nvidia_modeset`, `nvidia_uvm`, `nvidia_drm`)
   - Optimized for the linux-zen kernel and Btrfs filesystem
   - Uses `lz4` compression (level `-6`) for fast boot times
   - `MODULES_DECOMPRESS="no"` to minimize early boot memory usage
   - **Note**: Adjust `MODULES` and `HOOKS` for your hardware and filesystem (e.g., Intel GPU, ext4, or encryption)
+
+### Boot Loader Configuration
+- **`grub`**: GRUB boot loader configuration:
+  - Custom kernel parameters for performance and hardware compatibility
+  - Timeout and menu style settings
+  - Custom theme and resolution
+  - Disables recovery mode entries
+  - Example settings for encrypted disks and OS probing
+  - **Theme customization**: For a custom GRUB theme, you can install the `grub2-theme-archlinux` package from the AUR and set the path to the theme in the `GRUB_THEME` variable.
 
 ### Web Search Plugin
 - **`web-search.plugin.zsh`**: Custom Oh-My-ZSH plugin for terminal-based web searches:

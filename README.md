@@ -16,6 +16,8 @@ ArchLinux-utility-belt/
 │   ├── 20-intel.conf           # Xorg Intel GPU configuration
 │   ├── 99-custom.conf          # Kernel parameters optimization
 │   ├── .makepkg.conf           # Build system configuration
+│   ├── .oomd.conf              # Systemd-oomd out-of-memory management config
+│   ├── grub                    # GRUB boot loader configuration
 │   ├── .htaccess               # Apache server configuration with security and performance settings
 │   ├── .npmrc                  # NPM global settings
 │   ├── .zshrc                  # Main ZSH configuration
@@ -39,10 +41,6 @@ ArchLinux-utility-belt/
 │   ├── git-commit-template_ru.txt # Git commit message template (with Russian comments)
 │   ├── libreoffice.ott         # LibreOffice template document
 │   └── new-article-for-sale.md # Markdown template for marketplace posts
-├── other/                      # IDE themes and settings
-│   ├── One_Dark_Webstorm_theme.icls
-│   ├── yay.tar.gz              # AUR helper utility for Arch Linux
-│   └── WebstormAllSettings_03.2025.zip
 ├── LICENSE                     # MIT License
 └── README.md                   # Main documentation
 ```
@@ -60,7 +58,6 @@ Each directory contains dedicated documentation:
 - `configs/README.md`: System configuration details
 - `fonts/README.md`: Font installation and usage
 - `.zfunc/README.md`: ZSH function documentation
-- `other/README.md`: IDE settings and themes
 - `templates/README.md`: Template files documentation
 
 ## ⚠️ Notes
