@@ -18,6 +18,7 @@ path+=(
     $HOME/go/bin
     $JAVA_HOME/bin
     $PYENV_ROOT/bin
+    /usr/bin
 )
 
 fpath+=($HOME/.zfunc)
@@ -29,22 +30,27 @@ export PATH
 # =====
 autoload -Uz compinit
 
-for file in $HOME/.zfunc/*; do
+for file in $HOME/.zfunc/*;
+do
   autoload -Uz ${file:t}
+  compdef '_files -g "*/"' ${file:t}
 done
 
 compinit -i
+
+
 
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
 
-compdef _files mcedit
-
 # ===== OH-MY-ZSH =====
 ZSH_THEME="jonathan"
 plugins=(git sudo web-search)
 source $ZSH/oh-my-zsh.sh
+
+compdef _files mcedit
+compdef '_files' openvpn
 
 # Sysytem
 alias zconf="mcedit ~/.zshrc"
@@ -78,12 +84,11 @@ alias m="mc"
 alias sm="sudo mc"
 alias se="sudo mcedit"
 alias b="btop"
+alias update_gh_pages='git push origin :gh-pages --force && git subtree push --prefix dist origin gh-pages'
 
 #GIT
-alias update_gh-pages='git push origin :gh-pages --force && git subtree push --prefix dist origin gh-pages'
 alias gct="git cherry-pick -X theirs --strategy=recursive --strategy-option=theirs"
 alias grs="git reset --soft"
-
 # NPM
 alias nig="npm install -g"
 alias nug="npm uninstall -g"
