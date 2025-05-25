@@ -32,6 +32,7 @@ ArchLinux-utility-belt/
 │   ├── fn_optimize_images      # Image optimization script
 │   ├── fn_new_article_for_sale # Create new custom article file
 │   ├── fn_convert_media        # Convert audio or video file
+│   ├── fn_git_clone_template   # Clone Git repository as template without Git history
 │   └── fn_convert_media_batch  # Convert multiple audio or video files from input folder
 ├── templates/
 │   ├── desktop-file.desktop    # Template for desktop entries

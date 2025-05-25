@@ -1,0 +1,43 @@
+#$HOME/.zfunc/fn_git_clone_template
+
+fn_git_clone_template() {
+  local repo_url="$1"
+  local branch=${2:-master}
+  local input_project_name="$3"
+  local tmp_dir=$(mktemp -d)
+  local project_name=$(basename "$PWD")
+
+  if [[ -z "$repo_url" || "$repo_url" == "-h" || "$repo_url" == "--help" ]]; then
+    echo "
+    Usage:
+      fn_git_clone_template <git-repo-url> [source-branch] [new-project-name]
+
+    Arguments:
+      <git-repo-url>      Required. The URL of the Git repository to clone.
+      [new-project-name]  Optional. The name for the new project directory.
+      [source-branch]     Optional. The branch from which files will be copied.
+                          Defaults to \"master\" if not specified.
+
+    Behavior:
+      - If [source-branch] is omitted, the function will use the \"master\" branch as the source.
+      - If [new-project-name] is not provided, the files from the specified [source-branch]
+        will be copied directly into the current working directory.
+      - If [new-project-name] is specified, a new directory with this name will be created,
+        and the files from the [source-branch] will be copied into it.
+      - The .git directory from the original repository will not be copied.
+        Instead, a new, empty Git repository will be initialized in the destination.
+    "
+    return 1
+  fi
+
+  if [[ "$input_project_name" ]]; then
+    mkdir ./$input_project_name
+    cd ./$input_project_name
+  fi
+
+  git clone --depth 1 --single-branch --branch "$branch" "$repo_url" "$tmp_dir" \
+  && rm -rf "$tmp_dir/.git" \
+  && cp -r "$tmp_dir/"* "$tmp_dir/".* ./ \
+  && rm -rf "$tmp_dir" \
+  && git init
+}
