@@ -66,7 +66,7 @@ function web_search() {
 
 alias bing='web_search bing'
 alias brs='web_search brave'
-alias gl='web_search google'
+alias gls='web_search google'
 alias yahoo='web_search yahoo'
 alias ddg='web_search duckduckgo'
 alias sp='web_search startpage'
