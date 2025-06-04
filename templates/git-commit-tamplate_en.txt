@@ -1,0 +1,40 @@
+#<type>(<scope>): <description>
+():
+
+#<body>
+
+#<footer>
+
+# Commit types
+#  feat - a new feature.
+#  fix - bug fixes.
+#  refactor - code changes that neither fix bugs nor add features.
+#  chore - changes to configs, build system, dependencies updates, etc.
+#  test - anything related to testing.
+#  style - typo fixes, code formatting changes (line breaks, indentation, semicolons, etc.) without changing code logic.
+#  docs - documentation only changes.
+#  perf - code changes that improve performance.
+#  build - changes affecting build system or external dependencies (webpack, npm).
+#  ci - changes in CI configuration files.
+
+# BREAKING CHANGE (major changes)
+# BREAKING CHANGE: must be placed in the footer and is automatically appended to the end of the commit header.
+# Major changes break backward compatibility.
+# Can be part of any commit type.
+# Must start with BREAKING CHANGE:, followed by a short summary, a blank line, then a detailed description.
+
+# Some quick rules
+# - Commit messages must be written in English.
+# - Commit header must be lowercase.
+# - No period (.) at the end of the header.
+# - Header length should not exceed 100 characters, preferably 50.
+#   Details go into the body and footer.
+# - Description starts with a verb in present tense, e.g. add, update, improve, remove (not added, updates).
+
+# How to write commit message for Pull Requests
+#  The commit message on PR merge follows the same rules above.
+#  Append the PR number in parentheses at the end of the header, e.g.:
+#    refactor(Block.ts): update render method (#67)
+#  All commit messages from the merged branch go into the commit body.
+#  To add the template globally:
+#  git config --global commit.template "$HOME/templates/git-commit-template_en.txt"
