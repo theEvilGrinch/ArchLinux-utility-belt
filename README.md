@@ -1,6 +1,7 @@
 # ArchLinux Utility Belt
 
 ![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 A personal collection of configuration files, utilities, scripts, and functions for managing and enhancing Arch Linux system.
 
