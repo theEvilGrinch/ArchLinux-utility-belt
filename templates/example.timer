@@ -3,35 +3,21 @@
 # ~/.config/systemd/user/example.timer
 
 [Unit]
-# Human-readable description
 Description=Timer for Example Service
-# Link to documentation
 Documentation=man:systemd.timer(5)
-# Required service unit
 Requires=example.service
-# Start after network is ready
 After=network-online.target
 
 [Timer]
-# Run 15 minutes after boot
-OnBootSec=15min
-# Run every hour after service starts
-OnUnitActiveSec=1h
-# Run at midnight (alternative schedule)
-OnCalendar=*-*-* 00:00:00
-# Add random delay up to 10 minutes
-RandomizedDelaySec=10min
+# OnBootSec=15min
+# OnUnitActiveSec=1h
+# OnCalendar=*-*-* 00:00:00
+# RandomizedDelaySec=10min
 
-# Advanced Settings (uncomment to use)
-# Timer accuracy
-#AccuracySec=1s
-# Run immediately if last run was missed
-#Persistent=true
-# Don't wake up system from sleep
-#WakeSystem=false
-# Remove from active state after running
-#RemainAfterElapse=no
+# AccuracySec=1s
+# Persistent=true
+# WakeSystem=false
+# RemainAfterElapse=no
 
 [Install]
-# Enable for system/user timers
 WantedBy=timers.target

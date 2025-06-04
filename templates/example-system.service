@@ -1,29 +1,18 @@
 # /etc/systemd/system/example-system.service
 
 [Unit]
-# Human-readable description
 Description=Example System Service (e.g., Web Server)
-# Start after network is ready
 After=network.target
 
 [Service]
-# Service type (simple, forking, notify)
 Type=simple
-# Absolute path to executable + args
 ExecStart=/usr/bin/nginx -g "daemon off;"
-# Auto-restart on crashes
 Restart=on-failure
-# Delay before restart (optional)
 RestartSec=5s
-# Run as specific user
 User=http
-# Run as specific group
 Group=http
-# Set environment variables
 Environment="VAR=value"
-# Working directory for the app
 WorkingDirectory=/etc/nginx
 
 [Install]
-# Enable for default server runlevel
 WantedBy=multi-user.target

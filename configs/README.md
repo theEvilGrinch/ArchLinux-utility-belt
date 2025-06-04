@@ -11,9 +11,9 @@ This directory contains configuration files for system components and applicatio
   - [Boot Loader Configuration](#boot-loader-configuration)
   - [Web Search Plugin](#web-search-plugin)
   - [Apache Configuration](#apache-configuration)
-- [🛠 Prerequisites](#-prerequisites)
-- [⚠️ Notes](#️-notes)
-- [📄 License](#-license)
+- [Prerequisites](#prerequisites)
+- [Notes](#notes)
+- [License](#license)
 
 ## Configuration Files
 
@@ -73,7 +73,6 @@ This directory contains configuration files for system components and applicatio
 - **`web-search.plugin.zsh`**: Custom Oh-My-ZSH plugin for terminal-based web searches:
   - Supports search engines (Google, DuckDuckGo, etc.), AI interfaces (ChatGPT, Perplexity), and Yandex Translate
   - Opens the default browser with the query
-- **`web-search.plugin.zsh_default`**: Default version of the web search plugin for reference or alternative use.
 
 ### Apache Configuration
 - **`.htaccess`**: Comprehensive Apache server configuration:
@@ -83,21 +82,21 @@ This directory contains configuration files for system components and applicatio
   - MIME type definitions and file access controls
   - Customized error document handling
 
-## 🛠 Prerequisites
+## Prerequisites
 - Arch Linux (or derivatives)
 - ZSH shell with Oh-My-ZSH
 - Sudo privileges for system-wide changes
 - Common development tools (e.g., ffmpeg, Node.js with npm, make)
 - Optional: yay (AUR helper), Nvidia drivers, linux-zen kernel
 
-## ⚠️ Notes
+## Notes
 These configurations are tailored to my workflow but can be adapted with care.
 - **Backup First**: Always back up existing configurations before replacing them.
 - **Path Guidance**: Each file includes a header comment indicating its target location.
 - **Hardware Specificity**: Configurations target an Nvidia GPU, linux-zen kernel, and Btrfs filesystem, with optional Intel GPU support via `configs/20-intel.conf`.
 - **Sudo Dependency**: Many utilities require sudo privileges for full functionality.
 
-## 📄 License
+## License
 Licensed under the MIT License. See the root [LICENSE](../LICENSE) file for details.
 
 ---
