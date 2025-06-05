@@ -12,7 +12,6 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 source /usr/share/nvm/init-nvm.sh
 
-# =====
 path+=(
     $HOME/.local/bin
     $HOME/go/bin
@@ -40,7 +39,7 @@ zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
 
-# ===== OH-MY-ZSH =====
+# Oh my zsh
 ZSH_THEME="jonathan"
 plugins=(git sudo web-search)
 source $ZSH/oh-my-zsh.sh
@@ -68,7 +67,7 @@ alias ys="yay -S"
 alias yss="yay -Ss"
 alias yr="yay -R"
 
-# DOCKER
+# Docker
 alias dr="docker run"
 alias dri="docker run -it"
 
