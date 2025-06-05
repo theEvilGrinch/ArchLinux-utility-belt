@@ -1,0 +1,22 @@
+# $HOME/.zfunc/
+function fn_new_libreoffice_doc() {
+    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+        echo "Usage: fn_new_libreoffice_doc [document name] [path]"
+        echo "Create a new libreoffice document from template"
+        echo "Arguments:"
+        echo "  document name  Required. Name for the document, without extension"
+        echo "  path           Optional. Path where to create the file (default: current directory)"
+        return 0
+    fi
+
+    if [[ -z $1 ]]; then
+        echo "Enter document name."
+        echo "Run 'fn_new_libreoffice_doc -h' to see usage"
+        return 1
+    fi
+
+    local unit_name="${1}"
+    local path="${2:-./}"
+
+    /bin/cp "${HOME}/templates/libreoffice.ott" "${path}/${unit_name}.ott"
+}

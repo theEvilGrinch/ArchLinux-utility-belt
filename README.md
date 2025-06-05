@@ -44,7 +44,13 @@ ArchLinux-utility-belt/
 │   ├── fn_optimize_images          # Image optimization script
 │   ├── fn_convert_media            # Convert audio or video file
 │   ├── fn_git_clone_template       # Clone Git repository as template without Git history
-│   └── fn_convert_media_batch      # Convert multiple audio or video files from input folder
+│   ├── fn_convert_media_batch      # Convert multiple audio or video files from input folder
+│   ├── fn_new_libreoffice_doc      # Create new formated LibreOffice document 
+│   ├── fn_new_Dockerfile           # Create new Dockerfile 
+│   ├── fn_new_desktop_file         # Create new .desktop file
+│   ├── fn_new_timer                # Create new systemd timer unit 
+│   ├── fn_new_system_service       # Create new system-level systemd service unit 
+│   └── fn_new_user_service         # Create new user-level systemd service unit 
 ├── templates/                      # File generation templates
 │   ├── Dockerfile                  # Template Dockerfile for Node.js applications based on Alpine Linux
 │   ├── desktop-file.desktop        # Template for desktop entries
@@ -57,6 +63,7 @@ ArchLinux-utility-belt/
 ├── LICENSE                         # MIT License
 └── README.md                       # Main documentation
 ```
+
 ## Features
 
 - Modular system and application configuration files

@@ -1,68 +1,166 @@
-# .zfunc
+# Custom ZSH Functions
 
 This directory contains ZSH functions that provide additional functionality and automation for various tasks.
 
 ## Functions
 
-- **fn_youtube_video_translate**: automatically translates YouTube videos into Russian. It uses `vot-cli` with Yandex API to translate audio into Russian, downloads video using `yt-dlp`, and combines them with `ffmpeg` to create new video with translated audio track. Function uses `-hwaccel cuda` option in `ffmpeg`, which requires Nvidia GPU; if no Nvidia GPU is available, remove this option. Additionally, function uses cookies from Firefox via `yt-dlp` (`--cookies-from-browser firefox`); if Firefox is not used, remove this option or replace `firefox` with preferred browser (e.g., `chrome`). The `yt-dlp` command uses `--concurrent-fragments 24` for parallel downloads, which may strain weaker systems—reduce to 8 if performance issues occur.
-- **fn_new_article_for_sale**: function to create new article for sale, setting up directory structure and launching Obsidian editor.
-- **fn_optimize_images**: optimizes images based on their format. Takes input directory and output directory as arguments and applies appropriate optimization tool:
-  - PNG: pngquant
-  - JPEG: jpegoptim
-  - WEBP: cwebp (provided by libwebp package)
-  - SVG: svgo
-  - other formats: magick (provided by imagemagick package)
-  
-  **Usage**: fn_optimize_images <source_folder> <target_folder>
-- **fn_convert_media**: convert audio or video files into specified format using FFmpeg. Depends on FFmpeg being installed in system. Accepts up to three arguments: path to input audio or video file, desired output extension (e.g., `mkv`, `aac`), and optional FFmpeg options passed as single string (e.g., `"-c:a copy"`). Function validates input file existence, checks output format support in FFmpeg, and generates output filename by replacing input extension with specified one.
+### `fn_youtube_video_translate`
+Automatically translates YouTube videos into Russian. Utilizes `vot-cli` with the Yandex API to translate audio, downloads video using `yt-dlp`, and merges them with `ffmpeg` to produce a new video with a translated audio track. Requires an Nvidia GPU for `-hwaccel cuda` in `ffmpeg`; remove this option if unavailable. Uses Firefox cookies via `yt-dlp` (`--cookies-from-browser firefox`); adjust as needed for your browser. The `--concurrent-fragments 24` option in `yt-dlp` enables parallel downloads; reduce this value on low-performance systems.
 
-  **Usage**: fn_convert_media <input_file> <output_extension> "<ffmpeg_options>"
+**Usage:**  
+`fn_youtube_video_translate <project_name> <video_url>`
 
-  **Examples**:
-  - `fn_convert_media ~/audiofolder/audiofile.mp3 aac` - converts MP3 file to AAC format.
-  - `fn_convert_media ~/videofolder/videofile.mp4 mkv "-c:v h264_nvenc -c:a copy"` - re-encodes MP4 video to MKV using NVIDIA hardware acceleration for video and copying audio stream without re-encoding.<br>
-- **fn_convert_media_batch**: convert multiple audio or video files from input folder into specified format using FFmpeg. Depends on FFmpeg being installed in system. Accepts up to four arguments: path to input folder with audio or video files, path to output folder for converted files, desired output extension (e.g., `mkv`, `aac`), and optional FFmpeg options passed as single string (e.g., `"-c:a copy"`). Function validates input folder existence, creates output folder if needed, and processes all files in input folder.
+---
 
-  **Usage**: fn_convert_media_batch <input_folder> <output_folder> <output_extension> "<ffmpeg_options>"
+### `fn_optimize_images`
+Optimizes images in a source directory and saves the results to a target directory. Applies the appropriate optimization tool based on file format:
 
-  **Examples**:
-  - `fn_convert_media_batch ~/audiofolder ~/converted aac` - Converts all files in `~/audiofolder` to AAC format and saves them in `~/converted`.<br>
-  - `fn_convert_media_batch ~/videofolder ~/converted mkv "-c:v h264_nvenc -c:a copy"` - Re-encodes all video files in `~/videofolder` to MKV using NVIDIA hardware acceleration for video and copying audio stream, saving results in `~/converted`.
-  
-  **Supported formats for `fn_convert_media_batch` and `fn_convert_media`**:
-  - audio: `mp3`, `aac`, `m4a`, `flac`, `wav`, `ogg`, `opus`.<br>
-  - video: `mp4`, `mkv`, `avi`, `mov`, `webm`, `flv`, `wmv`.
-- **fn_git_clone_template**: clones a Git repository as a template without preserving Git history. This function allows copying files from a specific branch of a repository into either the current directory or a newly created project directory. It removes the original `.git` directory and initializes a fresh Git repository.
+- PNG: `pngquant`
+- JPEG: `jpegoptim`
+- WEBP: `cwebp` (from the `libwebp` package)
+- SVG: `svgo`
+- AVIF: `magick` (from the `imagemagick` package)
 
-  **Usage**: fn_git_clone_template <git-repo-url> [source-branch] [new-project-name]
+**Usage:**  
+`fn_optimize_images <source_folder> <target_folder>`
 
-  **Arguments**:
-  - `<git-repo-url>`: the URL of the Git repository to clone (required). Supports both HTTPS and SSH URL formats.
-  - `[source-branch]`: the branch from which files will be copied (optional), master by default.
-  - `[new-project-name]`: the name for the new project directory (optional).
+---
 
-  **Behavior**:
-  - If [source-branch] is omitted, the function will use the "master" branch as the source.
-  - If [new-project-name] is not provided, the files from the specified [source-branch] will be copied directly into the current working directory.
-  - If [new-project-name] is specified, a new directory with this name will be created, and the files from the [source-branch] will be copied into it.
-  - The .git directory from the original repository will not be copied. Instead, a new, empty Git repository will be initialized in the destination.
+### `fn_convert_media`
+Converts audio or video files to a specified format using FFmpeg. Validates input file existence, checks FFmpeg format support, and generates the output filename by replacing the input extension.
 
-  **Examples**:
-  - `fn_git_clone_template https://github.com/user/repo.git` - clones 'master' branch of repository into current directory.
-  - `fn_git_clone_template git@github.com:user/repo.git main new-project` - clones 'main' branch of repository into new 'new-project' directory using SSH URL.
-  - `fn_git_clone_template https://github.com/user/repo.git develop my-project` - clones 'develop' branch of repository into new 'my-project' directory.
+**Usage:**  
+`fn_convert_media <input_file> <output_extension> "<ffmpeg_options>"`
 
-## ⚙️ Setup
-To use the functions in the `.zfunc` directory, add it to your ZSH `fpath` and enable autoloading in your `.zshrc`. This ensures ZSH can locate and load the functions automatically.
+**Examples:**
+- `fn_convert_media ~/audiofolder/audiofile.mp3 aac`
+- `fn_convert_media ~/videofolder/videofile.mp4 mkv "-c:v h264_nvenc -c:a copy"`
+
+---
+
+### `fn_convert_media_batch`
+Batch converts audio or video files from an input folder to a specified format using FFmpeg. Validates input folder, creates output folder if needed, and processes all files in the input directory.
+
+**Usage:**  
+`fn_convert_media_batch <input_folder> <output_folder> <output_extension> "<ffmpeg_options>"`
+
+**Examples:**
+- `fn_convert_media_batch ~/audiofolder ~/converted aac`
+- `fn_convert_media_batch ~/videofolder ~/converted mkv "-c:v h264_nvenc -c:a copy"`
+
+**Supported formats:**  
+Audio: `mp3`, `aac`, `m4a`, `flac`, `wav`, `ogg`, `opus`  
+Video: `mp4`, `mkv`, `avi`, `mov`, `webm`, `flv`, `wmv`
+
+---
+
+### `fn_git_clone_template`
+Clones a Git repository as a template without preserving Git history. Copies files from a specific branch into the current directory or a new project directory, removes the original `.git` directory, and initializes a new Git repository.
+
+**Usage:**  
+`fn_git_clone_template <git-repo-url> [source-branch] [new-project-name]`
+
+**Arguments:**
+- `<git-repo-url>`: Required. The URL of the Git repository (HTTPS or SSH).
+- `[source-branch]`: Optional. Branch to copy from (default: `master`).
+- `[new-project-name]`: Optional. Name for the new project directory.
+
+**Behavior:**
+- If `[source-branch]` is omitted, uses `master`.
+- If `[new-project-name]` is omitted, copies files into the current directory.
+- If `[new-project-name]` is specified, creates a new directory and copies files into it.
+- The original `.git` directory is removed; a new Git repository is initialized.
+
+**Examples:**
+- `fn_git_clone_template https://github.com/user/repo.git`
+- `fn_git_clone_template git@github.com:user/repo.git main new-project`
+- `fn_git_clone_template https://github.com/user/repo.git develop my-project`
+
+---
+
+### `fn_new_Dockerfile`
+Creates a new Dockerfile from a template.
+
+**Usage:**  
+`fn_new_Dockerfile [path]`
+
+**Arguments:**
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+---
+
+### `fn_new_desktop_file`
+Creates a new `.desktop` file from a template.
+
+**Usage:**  
+`fn_new_desktop_file [filename] [path]`
+
+**Arguments:**
+- `filename`: Optional. Name of the `.desktop` file, without extension (default: `desktop-file.desktop`).
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+---
+
+### `fn_new_timer`
+Creates a new systemd timer unit from a template.
+
+**Usage:**  
+`fn_new_timer [unit_name] [path]`
+
+**Arguments:**
+- `unit_name`: Required. Name for the timer unit file, without extension.
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+---
+
+### `fn_new_system_service`
+Creates a new system-level systemd service unit from a template.
+
+**Usage:**  
+`fn_new_system_service [unit_name] [path]`
+
+**Arguments:**
+- `unit_name`: Required. Name for the service unit file, without extension.
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+---
+
+### `fn_new_user_service`
+Creates a new user-level systemd service unit from a template.
+
+**Usage:**  
+`fn_new_user_service [unit_name] [path]`
+
+**Arguments:**
+- `unit_name`: Required. Name for the service unit file, without extension.
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+---
+
+### `fn_new_libreoffice_doc`
+Creates a new LibreOffice document from a template.
+
+**Usage:**  
+`fn_new_libreoffice_doc [document_name] [path]`
+
+**Arguments:**
+- `document_name`: Required. Name for the document, without extension.
+- `path`: Optional. Path where the file will be created (default: current directory).
+
+
+## Setup
+To use the functions in the `.zfunc` directory, add it to your ZSH `fpath` and enable auto loading in your `.zshrc`. This ensures ZSH can locate and load the functions automatically.
 
 **Example**:
 ```zsh
 fpath+=($HOME/.zfunc)
-autoload -Uz $HOME/.zfunc/*
+for file in $HOME/.zfunc/*; do
+  autoload -Uz ${file:t}
+done
 ```
 See [configs/.zshrc](../configs/.zshrc) for full configuration details.
 
-## ⚠️ Notes
+## Notes
 These configurations are tailored to my workflow but can be adapted with care.<br>
 - **Backup First**: Always back up existing configurations before replacing them.<br>
 - **Path Guidance**: Each file includes header comment indicating its target location.

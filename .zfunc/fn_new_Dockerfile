@@ -1,0 +1,13 @@
+# $HOME/.zfunc/
+function fn_new_Dockerfile() {
+    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+        echo "Usage: fn_new_Dockerfile [path]"
+        echo "Create a new Dockerfile from template"
+        echo "Arguments:"
+        echo "  path    Optional. Path where to create the file (default: current directory)"
+        return 0
+    fi
+
+    local path="${1:-./}"
+    /bin/cp "${HOME}/templates/Dockerfile" "${path}/Dockerfile"
+}

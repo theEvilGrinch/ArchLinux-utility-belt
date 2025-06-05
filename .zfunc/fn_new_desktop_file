@@ -1,0 +1,15 @@
+# $HOME/.zfunc/
+function fn_new_desktop_file() {
+    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+        echo "Usage: fn_new_desktop_file [filename] [path]"
+        echo "Create a new .desktop file from template"
+        echo "Arguments:"
+        echo "  filename    Optional. Name of the .desktop file, without extension (default: desktop-file.desktop)"
+        echo "  path        Optional. Path where to create the file (default: current directory)"
+        return 0
+    fi
+
+    local filename="${1:-desktop-file}"
+    local path="${2:-./}"
+    /bin/cp "${HOME}/templates/desktop-file.desktop" "${path}/${filename}.desktop"
+}

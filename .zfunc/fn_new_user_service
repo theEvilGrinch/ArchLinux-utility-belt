@@ -1,0 +1,22 @@
+# $HOME/.zfunc/
+function fn_new_user_service() {
+    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+        echo "Usage: fn_new_user_service [unit name] [path]"
+        echo "Create a new user-level Systemd service unit from template"
+        echo "Arguments:"
+        echo "  unit name  Required. Name for the service unit file, without extension"
+        echo "  path       Optional. Path where to create the file (default: current directory)"
+        return 0
+    fi
+
+    if [[ -z $1 ]]; then
+        echo "Enter unit name."
+        echo "Run 'fn_new_user_service -h' to see usage"
+        return 1
+    fi
+
+    local unit_name="${1}"
+    local path="${2:-./}"
+
+    /bin/cp "${HOME}/templates/example-user.service" "${path}/${unit_name}.service"
+}
