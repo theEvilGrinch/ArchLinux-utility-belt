@@ -1,13 +1,11 @@
 # $HOME/.zshrc
-
 export ZSH="$HOME/.oh-my-zsh"
-export LANG=en_US.UTF-8
-export EDITOR=mcedit
-export GPG_TTY=$(tty)
-export NVM_DIR="$HOME/.nvm"
-export JAVA_HOME=$(readlink -f /usr/lib/jvm/default)
-export GOPATH="$HOME/go"
-export PYENV_ROOT="$HOME/.pyenv"
+
+set -a
+source .env
+source .env_priv
+set +a
+
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 source /usr/share/nvm/init-nvm.sh

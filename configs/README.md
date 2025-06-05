@@ -21,12 +21,25 @@ This directory contains configuration files for system components and applicatio
 ### Shell Configuration
 `.zshrc`: ZSH shell configuration with the following features:
   - Oh-My-ZSH framework with the "jonathan" theme
-  - Comprehensive PATH setup for development tools
-  - Environment variables for Java, Go, Node.js (via NVM), and more
+  - Comprehensive `PATH` setup for development tools
+  - **Environment variables are externalized**:  
+    - General environment variables (e.g., paths) are stored in `.env`
+    - Sensitive or private variables (e.g., tokens, API keys) are stored in `.env_priv`
+    - Both files are sourced at the start of `.zshrc` for environment initialization
   - System maintenance aliases (e.g., updates, cache cleanup)
   - Package management shortcuts for pacman and yay
   - Custom utilities for network testing, disk space checks, and file management
-  - Advanced completion settings, improved history behavior, and enhanced key bindings  
+  - Advanced completion settings, improved history behavior, and enhanced key bindings
+
+> **Note:**  
+> `.env` and `.env_priv` files must exist in the configuration directory.  
+> If you do not use these files, remove or comment out the corresponding following block in `.zshrc` to avoid errors:
+```bash
+  set -a
+  source .env
+  source .env_priv
+  set +a
+```
 
 `.zshrc_default`: A default ZSH configuration with Oh-My-ZSH, provided as a baseline or fallback option.
 
