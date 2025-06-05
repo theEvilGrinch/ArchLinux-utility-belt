@@ -36,8 +36,8 @@ This directory contains configuration files for system components and applicatio
 > If you do not use these files, remove or comment out the corresponding following block in `.zshrc` to avoid errors:
 ```bash
   set -a
-  source .env
-  source .env_priv
+  source $HOME/.env
+  source $HOME/.env_priv
   set +a
 ```
 

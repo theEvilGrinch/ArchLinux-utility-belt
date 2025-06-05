@@ -2,8 +2,8 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 set -a
-source .env
-source .env_priv
+source $HOME/.env
+source $HOME/.env_priv
 set +a
 
 eval "$(pyenv init --path)"
