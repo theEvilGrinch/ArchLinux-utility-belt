@@ -1,21 +1,40 @@
-# fonts
+# TrueType Fonts Collection
 
-This directory contains a collection of TrueType Fonts (TTF) for use in an Arch Linux environment, such as FiraCode, MartianMono, and OpenSans.
+This directory contains a curated set of TrueType fonts (TTF) intended for use in Arch Linux environments. The collection includes FiraCode, MartianMono, OpenSans, and San Francisco Pro fonts.
 
 ## Installation
-Place the `fonts/` directory in `$HOME/.fonts/` to make the fonts available for your user. Alternatively, you can use the following locations:
-- **User-level**: `$HOME/.local/share/fonts/` (modern standard for user fonts)
-- **System-level**: `/usr/share/fonts/` or `/usr/local/share/fonts/` (requires sudo, makes fonts available to all users)
 
-## ⚙️ Setup
-After copying the fonts to your desired location, update the font cache to make them available to your system.
-Update the font cache using the following commands to ensure the fonts are recognized by your system:
+To install the fonts, copy the contents of the `fonts/` directory to one of the following locations:
+
+- **User-specific installation** (recommended):  
+  `$HOME/.local/share/fonts/`  
+  _This is the modern standard for user-level font installation._
+
+- **Legacy user-specific installation:**  
+  `$HOME/.fonts/`  
+  _Supported for compatibility with older systems._
+
+- **System-wide installation** (requires root privileges):  
+  `/usr/share/fonts/` or `/usr/local/share/fonts/`  
+  _Makes fonts available to all users on the system._
+
+> **Note:** 
+> - System-wide installation requires `sudo` privileges.
+> - Fonts in this collection are free for non-commercial use. Commercial use may require obtaining appropriate licenses from the respective font authors or copyright holders.
+
+## Updating the Font Cache
+
+After copying the fonts, update the font cache to ensure the system recognizes the new fonts. Run the following commands as appropriate:
+
 ```zsh
-sudo fc-cache -fv && fc-cache -f -v
+# rebuild font cache for all users
+sudo fc-cache -f -v
+# rebuild font cache for current user
+fc-cache -f -v
 ```
-- `sudo fc-cache -fv` updates the system-wide font cache (requires sudo).
-- `fc-cache -f -v` updates the user-level font cache.
 
-## ⚠️ Notes
-- **Backup First**: Always back up existing font directories before replacing them. 
-- **Sudo Dependency**: Updating the system-wide font cache requires sudo privileges.
+Verification
+To verify that the fonts have been installed correctly, you can list fonts using:
+```zsh
+fc-list | grep -i "FiraCode\|MartianMono\|OpenSans\|SF-Pro-Display\|sft"
+```
