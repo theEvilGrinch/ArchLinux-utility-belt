@@ -2,6 +2,23 @@
 
 This directory contains ZSH functions that provide additional functionality and automation for various tasks.
 
+# Table of Contents
+
+- [Functions](#functions)
+  - [fn_youtube_video_translate](#fn_youtube_video_translate)
+  - [fn_optimize_images](#fn_optimize_images)
+  - [fn_convert_media](#fn_convert_media)
+  - [fn_convert_media_batch](#fn_convert_media_batch)
+  - [fn_git_clone_template](#fn_git_clone_template)
+  - [fn_new_Dockerfile](#fn_new_dockerfile)
+  - [fn_new_desktop_file](#fn_new_desktop_file)
+  - [fn_new_timer](#fn_new_timer)
+  - [fn_new_system_service](#fn_new_system_service)
+  - [fn_new_user_service](#fn_new_user_service)
+  - [fn_new_libreoffice_doc](#fn_new_libreoffice_doc)
+- [Setup](#setup)
+- [Notes](#notes)
+
 ## Functions
 
 ### `fn_youtube_video_translate`
