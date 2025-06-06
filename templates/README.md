@@ -1,13 +1,12 @@
 # File Generation Templates
 
-![Templates](https://img.shields.io/badge/Templates-Ready_to_use-brightgreen?style=for-the-badge)
-
 A comprehensive collection of template files for system configurations and development workflows on Arch Linux.
 
 ## Table of Contents
 - [System Configuration](#system-configuration)
 - [Development Workflow](#development-workflow)
-- [Docker Configuration](#docker-configuration)
+  - [Git](#git)
+  - [Docker](#docker)
 - [Office Documents](#office-documents)
 - [Automation](#automation)
 
@@ -18,6 +17,13 @@ A comprehensive collection of template files for system configurations and devel
 - `example-timer.timer` - Systemd timer unit template with scheduling examples and best practices
 
 ## Development Workflow
+### Git
+`.gitignore` - Comprehensive Git ignore template
+- Excludes common development artifacts and temporary files
+- Covers major IDEs and editors (VSCode, JetBrains, Sublime, Vim, Emacs)
+- Includes language-specific patterns for Node.js projects
+- Handles OS-specific files (macOS, Windows)
+
 `git-commit-template_en.txt` - Structured git commit message template with English annotations
 - Enforces consistent commit message format
 - Includes type, scope, and description sections
@@ -29,11 +35,16 @@ A comprehensive collection of template files for system configurations and devel
 - Includes Russian comments and guidelines
 - Can be set as default template: `git config --global commit.template "$HOME/templates/git-commit-template_ru.txt"`
 
-## Docker Configuration
+### Docker
 `Dockerfile` - Template for Node.js applications using Alpine Linux
 - Minimal base image for reduced size
 - Standard Node.js project structure
 - Basic npm workflow configuration
+
+`.dockerignore` - Docker ignore template
+- Excludes development dependencies and build artifacts
+- Prevents unnecessary files from being copied to images
+- Optimized for Node.js projects and common development tools
 
 ## Office Documents
 `libreoffice.ott` - LibreOffice text document template
