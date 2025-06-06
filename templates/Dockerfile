@@ -1,11 +1,14 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20-alpine
+FROM node:lts-alpine3.22
+# FROM golang:tip-alpine3.22
 
 WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
 
-CMD ["node", "index.js"]
+COPY . .
+
+CMD ["npm", "run", "dev"]

@@ -66,8 +66,10 @@ alias yss="yay -Ss"
 alias yr="yay -R"
 
 # Docker
+alias dc="docker"
 alias dr="docker run"
 alias dri="docker run -it"
+
 
 # NPM
 alias nig="npm install -g"
