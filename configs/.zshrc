@@ -67,9 +67,9 @@ alias yr="yay -R"
 
 # Docker
 alias dc="docker"
-alias dr="docker run"
-alias dri="docker run -it"
-
+alias dcr="docker run"
+alias dcri="docker run -it"
+alias dclog="echo "$DOCKER_HUB_TOKEN" | docker login -u theevilgrinch --password-stdin"
 
 # NPM
 alias nig="npm install -g"

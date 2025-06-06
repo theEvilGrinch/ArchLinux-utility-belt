@@ -52,13 +52,16 @@ ArchLinux-utility-belt/
 │   ├── fn_new_system_service       # Create new system-level systemd service unit 
 │   └── fn_new_user_service         # Create new user-level systemd service unit 
 ├── templates/                      # File generation templates
-│   ├── Dockerfile                  # Template Dockerfile for Node.js applications based on Alpine Linux
+│   ├── Dockerfile                  # Template Dockerfile for Node.js applications (Alpine-based)
+│   ├── docker-compose.yaml         # Multi-container Docker Compose template
+│   ├── .dockerignore               # Docker build context exclude patterns
 │   ├── desktop-file.desktop        # Template for desktop entries
 │   ├── exemple-system.service      # Systemd unit template (system-wide)
 │   ├── example-user.service        # Systemd unit template (user)
 │   ├── example-timer.timer         # Systemd timer unit template
 │   ├── git-commit-template_ru.txt  # Git commit message template (with Russian comments)
-│   ├── git-commit-template_en.txt  # Git commit message template (with English comments)
+│   ├── git-commit-template_en.txt  # Git commit message template (with English comments)э
+│   ├── .gitignore                  # Comprehensive Git ignore template
 │   └── libreoffice.ott             # LibreOffice template document
 ├── LICENSE                         # MIT License
 └── README.md                       # Main documentation
