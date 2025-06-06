@@ -41,6 +41,13 @@ A comprehensive collection of template files for system configurations and devel
 - Standard Node.js project structure
 - Basic npm workflow configuration
 
+`docker-compose.yaml` – Template for multi-container Docker applications  
+- Defines isolated services 
+- Maps host ports to container ports for local development
+- Mounts project directories as volumes for live code updates
+- Includes persistent `node_modules` volume to avoid conflicts with host dependencies
+- Configured for interactive frontend development
+
 `.dockerignore` - Docker ignore template
 - Excludes development dependencies and build artifacts
 - Prevents unnecessary files from being copied to images
