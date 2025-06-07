@@ -1,0 +1,17 @@
+# $HOME/.zfunc/
+function fn_new_dockerignore() {
+  local path="${1:-./}"
+  local usage=(
+    "Usage: fn_new_dockerignore [path]"
+    "Create a new .dockerignore file from template"
+    "Arguments:"
+    "  path    Optional. Path where to create the file (default: current directory)"
+  )
+
+  if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+      printf "%s\n" "${usage[@]}"
+      return 0
+  fi
+
+  /bin/cp "${HOME}/templates/.dockerignore" "${path}/.dockerignore"
+}
