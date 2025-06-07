@@ -1,24 +1,36 @@
-# $HOME/.zfunc/fn_convert_media
-# Usage: fn_convert_media <input_file> <output_extension> "<ffmpeg_options>"
+# $HOME/.zfunc/
 
 fn_convert_media() {
-  local input_file="$1"       # Path to the input file
-  local output_ext="$2"       # Desired output extension (e.g., mkv)
-  local ffmpeg_options="$3"   # Optional FFmpeg options as a single string
+  local input_file="$1"
+  local output_ext="$2"
+  local ffmpeg_options="$3"
+  local usage=(
+    "Usage: fn_convert_media input_file output_extension [\"ffmpeg_options\"]"
+    "Convert a media file to another format using FFmpeg."
+    "Arguments:"
+    "  input_file         Required. Path to the input media file."
+    "  output_extension   Required. Desired output file extension (e.g., mkv, mp3, aac)."
+    "  [ffmpeg_options]   Optional. Additional FFmpeg options as a double quoted string."
+    "Example:"
+    "  fn_convert_media input.mp4 mkv \"-c:v copy -c:a aac\""
+  )
 
-  # Check if the input file exists
+  if [[ "$input_file" == "-h" || "$input_file" == "--help" ]]; then
+    printf "%s\n" "${usage[@]}"
+    return 1
+  fi
+
+  if [[ -z "$input_file" || -z "$output_ext" ]]; then
+    printf "\n\t input_file and output_extension required\n\n"
+    printf "%s\n" "${usage[@]}"
+    return 1
+  fi
+
   if [[ ! -f "$input_file" ]]; then
-    echo "Error: The file '$input_file' does not exist.\nUsage: fn_convert_media <input_file> <output_extension> \"<ffmpeg_options>\""
+    printf "Error: The file \"%s\" does not exist." "$input_file"
     return 1
   fi
 
-  # Check if the output extension is specified
-  if [[ -z "$output_ext" ]]; then
-    echo "Error: No output file extension specified."
-    return 1
-  fi
-
-  # Map the extension to the FFmpeg muxer name
   local format
   case "${output_ext#.}" in
     mkv) format="matroska" ;;
@@ -27,21 +39,17 @@ fn_convert_media() {
     *) format="${output_ext#.}" ;;
   esac
 
-  # Check if the format is supported by FFmpeg
   if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
-    echo "Error: The format '$format' is not supported by FFmpeg."
+    echo "Error: The format ${format} is not supported by FFmpeg."
     return 1
   fi
 
-  # Generate the output file name by replacing the input file's extension
   local output_file="${input_file%.*}.$output_ext"
 
-  # Check if the output file already exists
   if [[ -f "$output_file" ]]; then
-    echo "Error: The file '$output_file' already exists. Delete it or choose a different name."
+    echo "Error: The file ${output_file} already exists. Delete it or choose a different name."
     return 1
   fi
 
-  # Run the FFmpeg command using eval to properly handle the options string
-  eval ffmpeg -i "$input_file" $ffmpeg_options "$output_file"
+  eval ffmpeg -i "$input_file" "$ffmpeg_options" "$output_file"
 }
