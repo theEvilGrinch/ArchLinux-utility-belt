@@ -1,7 +1,7 @@
 ### macOS ###
 .DS_Store
 Thumbs.db
-
+dist
 ### NodeJS ###
 logs
 *.log
@@ -23,7 +23,7 @@ coverage
 bower_components
 .lock-wscript
 build/Release
-node_modules/
+#node_modules/
 jspm_packages/
 web_modules/
 *.tsbuildinfo
@@ -38,6 +38,7 @@ web_modules/
 *.tgz
 .yarn-integrity
 .env
+.env_priv
 .env.development.local
 .env.test.local
 .env.production.local
@@ -47,7 +48,6 @@ web_modules/
 .next
 out
 .nuxt
-dist
 .cache/
 .vuepress/dist
 .temp
@@ -64,14 +64,12 @@ dist
 .pnp.*
 .webpack/
 .svelte-kit
-
 ### VSCode ###
 .vscode/*
 .history/
 *.vsix
 .history
 .ionide
-
 ### JetBrains ###
 .idea/**/*
 *.iml
@@ -86,7 +84,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 modules.xml
-
 ### SublimeText ###
 *.tmlanguage.cache
 *.tmPreferences.cache
@@ -100,7 +97,6 @@ Package Control.*/*
 oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 GitHub.sublime-settings
-
 ### Vim ###
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
@@ -112,7 +108,8 @@ Sessionx.vim
 .netrwhist
 tags
 [._]*.un~
-
+### Zed editor ###
+.zed
 ### Emacs ###
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -132,3 +129,524 @@ flycheck_*.el
 .projectile
 .dir-locals.el
 /network-security.data
+/build/
+### Angular ###
+# compiled output
+dist/
+tmp/
+app/**/*.js
+app/**/*.js.map
+# dependencies
+node_modules/
+bower_components/
+# IDEs and editors
+.idea/
+# misc
+.sass-cache/
+connect.lock/
+coverage/
+libpeerconnection.log/
+npm-debug.log
+testem.log
+typings/
+.angular/
+# e2e
+e2e/*.js
+e2e/*.map
+# System Files
+.DS_Store/
+### ArchLinuxPackages ###
+*.tar
+*.tar.*
+*.jar
+*.exe
+*.msi
+*.zip
+*.log.*
+*.sig
+pkg/
+### Emacs ###
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+.\#*
+# AUCTeX auto folder
+/auto/
+### Go ###
+# Binaries for programs and plugins
+*.exe~
+*.dll
+*.so
+*.dylib
+# Test binary, built with `go test -c`
+*.test
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+# Go workspace file
+go.work
+### Linux ###
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+# KDE directory preferences
+.directory
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+### macOS ###
+.AppleDouble
+.LSOverride
+# Icon must end with two \r
+Icon
+# Thumbnails
+._*
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+### react ###
+.DS_*
+**/*.backup.*
+**/*.back.*
+node_modules
+*.sublime*
+psd
+thumb
+sketch
+### ReactNative ###
+.expo
+__generated__
+### ReactNative.Android Stack ###
+.gradle/
+build/
+# Local configuration file (sdk path, etc)
+local.properties
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+# IntelliJ
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+# Keystore files
+*.jks
+*.keystore
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+# Android Profiling
+*.hprof
+### ReactNative.Xcode Stack ###
+## User settings
+xcuserdata/
+## Xcode 8 and earlier
+*.xcscmblueprint
+*.xccheckout
+### ReactNative.Buck Stack ###
+buck-out/
+.buckconfig.local
+.buckd/
+.buckversion
+.fakebuckversion
+### ReactNative.Gradle Stack ###
+.gradle
+**/build/
+!src/**/build/
+# Ignore Gradle GUI config
+gradle-app.setting
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+# Cache of project
+.gradletasknamecache
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+### Sass ###
+*.css.map
+*.sass.map
+*.scss.map
+### StorybookJs ###
+storybook-static/
+# Package control specific files
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+### Vue ###
+docs/_book
+test/
+### Vuejs ###
+yarn-error.log
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+# Dump file
+*.stackdump
+# Folder config file
+[Dd]esktop.ini
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+# Windows Installer files
+*.cab
+*.msix
+*.msm
+*.msp
+# Windows shortcuts
+*.lnk
+### WordPress ###
+# Core
+# Note: if you don't want to stage/commit WP core files
+# you can uncoment this whole section/until Configuration.
+#/wp-admin/
+#/wp-content/index.php
+#/wp-content/languages
+#/wp-content/plugins/index.php
+#/wp-content/themes/index.php
+#/wp-includes/
+#/index.php
+#/license.txt
+#/readme.html
+#/wp-*.php
+#/xmlrpc.php
+
+# Configuration
+wp-config.php
+# Example themes
+/wp-content/themes/twenty*/
+# Example plugin
+/wp-content/plugins/hello.php
+# Uploads
+/wp-content/uploads/
+# All plugins
+# Note: If you wish to whitelist plugins,
+# uncomment the next line
+#/wp-content/plugins
+# All themes
+# Note: If you wish to whitelist themes,
+# uncomment the next line
+#/wp-content/themes
+### Zsh ###
+# Zsh compiled script + zrecompile backup
+*.zwc
+*.zwc.old
+# Zsh completion-optimization dumpfile
+*zcompdump*
+# Zsh history
+.zsh_history
+# Zsh sessions
+.zsh_sessions
+# Zsh zcalc history
+.zcalc_history
+# A popular plugin manager's files
+._zinit
+.zinit_lstupd
+# zdharma/zshelldoc tool's files
+zsdoc/data
+# robbyrussell/oh-my-zsh/plugins/per-directory-history plugin's files
+# (when set-up to store the history in the local directory)
+.directory_history
+# MichaelAquilina/zsh-autoswitch-virtualenv plugin's files
+# (for Zsh plugins using Python)
+.venv
+# Zunit tests' output
+/tests/_output/*
+!/tests/_output/.gitkeep
+### VisualStudio ###
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+# Mono auto generated files
+mono_crash.*
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+# Visual Studio 2017 auto generated files
+Generated\ Files/
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+# StyleCop
+StyleCopReport.xml
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+# Chutzpah Test files
+_Chutzpah*
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+# Visual Studio Trace Files
+*.e2e
+# TFS 2012 Local Workspace
+$tf/
+# Guidance Automation Toolkit
+*.gpState
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+# TeamCity is a build add-in
+_TeamCity*
+# DotCover is a Code Coverage Tool
+*.dotCover
+# AxoCover is a Code Coverage Tool
+.axoCover/*
+!.axoCover/settings.json
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+# Web workbench (sass)
+# Installshield output folder
+[Ee]xpress/
+# DocProject is a documentation generator add-in
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/Html2
+DocProject/Help/html
+# Click-Once directory
+publish/
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# Note: Comment the next line if you want to checkin your web deploy settings,
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.publishproj
+# Microsoft Azure Web App publish settings.
+PublishScripts/
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+# Microsoft Azure Emulator
+ecf/
+rcf/
+# Windows Store app package directories and files
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!?*.[Cc]ache/
+# Others
+ClientBin/
+~$*
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs
+# RIA/Silverlight projects
+Generated_Code/
+# Backup & report files from converting an old project file
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+ServiceFabricBackup/
+*.rptproj.bak
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+*.rptproj.rsuser
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+# Microsoft Fakes
+FakesAssemblies/
+# GhostDoc plugin setting file
+*.GhostDoc.xml
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
+# Visual Studio 6 build log
+*.plg
+# Visual Studio 6 workspace options file
+*.opt
+# Visual Studio 6 auto-generated workspace file (contains which files were open etc.)
+*.vbw
+# Visual Studio 6 auto-generated project file (contains which files were open etc.)
+*.vbp
+# Visual Studio 6 workspace and project file (working project files containing files to include in project)
+*.dsw
+*.dsp
+# Visual Studio LightSwitch build output
+**/*.HTMLClient/GeneratedArtifacts
+**/*.DesktopClient/GeneratedArtifacts
+**/*.DesktopClient/ModelManifest.xml
+**/*.Server/GeneratedArtifacts
+**/*.Server/ModelManifest.xml
+_Pvt_Extensions
+# Paket dependency manager
+.paket/paket.exe
+paket-files/
+# FAKE - F# Make
+.fake/
+# CodeRush personal settings
+.cr/personal
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+# Cake - Uncomment if you are using it
+*.tss
+# Telerik's JustMock configuration file
+*.jmconfig
+# BizTalk build output
+*.btp.cs
+*.btm.cs
+*.odx.cs
+*.xsd.cs
+# OpenCover UI analysis results
+OpenCover/
+# Azure Stream Analytics local run output
+ASALocalRun/
+# MSBuild Binary and Structured Log
+*.binlog
+# NVidia Nsight GPU debugger configuration file
+*.nvuser
+# MFractors (Xamarin productivity tool) working folder
+.mfractor/
+# Local History for Visual Studio
+.localhistory/
+# Visual Studio History (VSHistory) files
+.vshistory/
+# BeatPulse healthcheck temp database
+healthchecksdb
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
+# VS Code files for those working on multiple tools
+*.code-workspace
+# JetBrains Rider
+*.sln.iml
