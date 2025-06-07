@@ -9,16 +9,28 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Repository Structure](#repository-structure)
+- [Disclaimer](#disclaimer)
 - [Features](#features)
-- [System Requirements](#system-requirements)
+- [Repository Structure](#repository-structure)
 - [Documentation](#documentation)
-- [Notes](#notes)
 - [License](#license)
 
 ## Overview
 
-A comprehensive toolkit for configuring, maintaining, and enhancing Arch Linux systems. This repository provides a modular collection of curated configuration files, shell utilities, and templates designed to optimize and automate common tasks in Arch Linux environments, streamlining both system administration and development workflows.
+This project offers a curated set of configurations and utilities for Arch Linux. It aims to simplify system setup, automate routine tasks, and provide a robust foundation for development and general use. The configurations are modular and can be adapted to individual needs.
+
+## Disclaimer
+
+- **Use at your own risk.** These configurations are highly personalized for my hardware and software choices.
+- **Hardware Specificity**: Configurations target Nvidia GPU, linux-zen kernel, Btrfs filesystem, optional internal Intel GPU support via `configs/20-intel.conf`.
+- **Backup First**: Always back up existing configurations before replacing them.
+- **Review Before Use**: Carefully inspect files before applying them to your system. Each file includes a header comment indicating its target location.
+
+## Features
+
+- **Modularity**: Configurations are split into logical units for easy management.
+- **Automation**: ZSH functions and utilities automate common development and administration tasks.
+- **Performance**: Settings are optimized for performance and security on a `linux-zen` kernel with a Btrfs filesystem.
 
 ## Repository Structure
 
@@ -40,13 +52,16 @@ ArchLinux-utility-belt/
 ├── fonts/                          # Font collections (TTF)
 │   └── [various font files]        # FiraCode, MartianMono, OpenSans, etc.
 ├── .zfunc/                         # Custom ZSH functions
-│   ├── fn_youtube_video_translate  # Video translation workflow
-│   ├── fn_optimize_images          # Image optimization script
-│   ├── fn_convert_media            # Convert audio or video file
+│   ├── fn_youtube_video_translate  # Download and translate YouTube videos
+│   ├── fn_optimize_images          # Optimize images in directory
+│   ├── fn_convert_media            # Convert audio or video file to another format
+│   ├── fn_convert_media_batch      # Convert multiple audio or video files
 │   ├── fn_git_clone_template       # Clone Git repository as template without Git history
-│   ├── fn_convert_media_batch      # Convert multiple audio or video files from input folder
+│   ├── fn_new_gitignore            # Create new .gitignore file from template
 │   ├── fn_new_libreoffice_doc      # Create new formated LibreOffice document 
-│   ├── fn_new_Dockerfile           # Create new Dockerfile 
+│   ├── fn_new_Dockerfile           # Create new Dockerfile from template 
+│   ├── fn_new_docker_compose       # Create new docker-compose.yaml file from template
+│   ├── fn_new_dockerignore         # Create new .dockerignore file from template
 │   ├── fn_new_desktop_file         # Create new .desktop file
 │   ├── fn_new_timer                # Create new systemd timer unit 
 │   ├── fn_new_system_service       # Create new system-level systemd service unit 
@@ -56,46 +71,24 @@ ArchLinux-utility-belt/
 │   ├── docker-compose.yaml         # Multi-container Docker Compose template
 │   ├── .dockerignore               # Docker build context exclude patterns
 │   ├── desktop-file.desktop        # Template for desktop entries
-│   ├── exemple-system.service      # Systemd unit template (system-wide)
+│   ├── example-system.service      # Systemd unit template (system-wide)
 │   ├── example-user.service        # Systemd unit template (user)
 │   ├── example-timer.timer         # Systemd timer unit template
 │   ├── git-commit-template_ru.txt  # Git commit message template (with Russian comments)
-│   ├── git-commit-template_en.txt  # Git commit message template (with English comments)э
+│   ├── git-commit-template_en.txt  # Git commit message template (with English comments)
 │   ├── .gitignore                  # Comprehensive Git ignore template
 │   └── libreoffice.ott             # LibreOffice template document
 ├── LICENSE                         # MIT License
 └── README.md                       # Main documentation
 ```
 
-## Features
-
-- Modular system and application configuration files
-- Advanced ZSH setup with custom plugins and aliases
-- Templates for systemd units, desktop entries, and development environments
-- Utility scripts for package management, networking, and media processing
-- Security and performance optimizations for kernel and user space
-
-## System Requirements
-
-- Arch Linux (or derivatives).
-- ZSH shell with Oh-My-ZSH framework.
-- Sudo privileges for system-wide configurations.
-- Common development tools (e.g., ffmpeg, Node.js with npm, make).
-
 ## Documentation
+This `README.md` provides a high-level overview. **Each module in this repository has its own detailed `README.md` file** with specific installation and usage instructions.
 
-Each directory contains dedicated documentation:
-- `configs/README.md`: System configuration details
-- `fonts/README.md`: Font installation and usage
-- `.zfunc/README.md`: ZSH function documentation
-- `templates/README.md`: Template files documentation
-
-## Notes
-This is a personal configuration repository tailored to my specific needs and preferences. While you're welcome to use and adapt these configurations, please review them carefully before applying them to your system.
-- **Backup First**: Always back up existing configurations before replacing them.
-- **Path Guidance**: Each file includes a header comment indicating its target location.
-- **Hardware Specificity**: Configurations target an Nvidia GPU, linux-zen kernel, and Btrfs filesystem, with optional Intel GPU support via `configs/20-intel.conf`.
-- **Sudo Dependency**: Many utilities require sudo privileges for full functionality.
+- [`configs/README.md`](configs/README.md): System and application configuration details.
+- [`fonts/README.md`](fonts/README.md): Font installation and usage.
+- [`templates/README.md`](templates/README.md): Template file documentation.
+- [`.zfunc/README.md`](.zfunc/README.md): ZSH function documentation.
 
 ## License
 
