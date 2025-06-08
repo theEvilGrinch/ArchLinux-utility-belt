@@ -61,17 +61,17 @@ Optimizes images in a source directory and saves the results to a target directo
 Converts audio or video files to a specified format using FFmpeg. Validates input file existence, checks FFmpeg format support.
 
 **Usage:**  
-`fn_convert_media input_file output_extension ["ffmpeg_options"]`
+`fn_convert_media input_file output_extension [ffmpeg_options]`
 
 **Arguments:**
 - `input_file`: Required. Path to the input media file.
 - `output_extension`: Required. Desired output file extension (e.g., mkv, mp3, aac).
-- `ffmpeg_options`: Optional. Additional FFmpeg options as a double-quoted string.
+- `ffmpeg_options`: Optional. Additional FFmpeg options.
 
 **Examples:**
 ```bash
 fn_convert_media ~/audiofolder/audiofile.mp3 aac
-fn_convert_media ~/videofolder/videofile.mp4 mkv "-c:v h264_nvenc -c:a copy"
+fn_convert_media ~/videofolder/videofile.mp4 mkv -c:v h264_nvenc -c:a copy
 ````
 ---
 
@@ -79,21 +79,21 @@ fn_convert_media ~/videofolder/videofile.mp4 mkv "-c:v h264_nvenc -c:a copy"
 Batch converts all audio or video files in a directory to a specified format using FFmpeg. Validates input/output folders, checks format support, and processes each file individually.
 
 **Usage:**  
-`fn_convert_media_batch input_folder output_folder output_extension ["ffmpeg_options"]`
+`fn_convert_media_batch input_folder output_folder output_extension [ffmpeg_options]`
 
 **Arguments:**
 - input_folder: Required. Path to the folder containing input media files.
 - output_folder: Required. Path to the folder where converted files will be saved.
 - output_extension: Required. Desired output file extension (e.g., mkv, mp3, aac).
-- ffmpeg_options: Optional. Additional FFmpeg options as a double-quoted string.
+- ffmpeg_options: Optional. Additional FFmpeg options.
 
 **Examples:**
 ```bash
 fn_convert_media_batch ~/audiofolder ~/converted aac
-fn_convert_media_batch ~/videofolder ~/converted mkv "-c:v h264_nvenc -c:a copy"
+fn_convert_media_batch ~/videofolder ~/converted mkv -c:v h264_nvenc -c:a copy
 ```
 
-**Supported formats:**  
+**Supported formats for `fn_convert_media_batch` and `fn_convert_media`:**  
 Audio: `mp3`, `aac`, `m4a`, `flac`, `wav`, `ogg`, `opus`  
 Video: `mp4`, `mkv`, `avi`, `mov`, `webm`, `flv`, `wmv`
 

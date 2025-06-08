@@ -1,33 +1,43 @@
-# $HOME/.zfunc/fn_convert_media_batch
-# Usage: fn_convert_media_batch <input_folder> <output_folder> <output_extension> "<ffmpeg_options>"
+# $HOME/.zfunc/
 
 fn_convert_media_batch() {
-  local input_folder="$1"      # Path to the input folder
-  local output_folder="$2"     # Path to the output folder
-  local output_ext="$3"        # Desired output extension (e.g., mkv)
-  local ffmpeg_options="$4"    # Optional FFmpeg options as a single string
+  local input_folder="$1"
+  local output_folder="$2"
+  local output_ext="$3"
+  local supported_exts=" mp3 aac m4a flac wav ogg opus mp4 mkv avi mov webm flv wmv "
+  local usage=(
+    "Usage: fn_convert_media_batch input_folder output_folder output_ext [ffmpeg_options]"
+    "Convert all audio or video files in a directory to a specified format using FFmpeg."
+    "Arguments:"
+    "  input_folder      Required. Path to input folder."
+    "  output_folder     Required. Path to output folder."
+    "  output_extension  Required. Desired output file extension (e.g., mkv, mp3, aac)."
+    "  ffmpeg_options    Optional. Additional FFmpeg options."
+    "Example:"
+    "  fn_convert_media_batch ./folder1 ./folder2 mkv -c:v copy -c:a aac"
+    "  fn_convert_media_batch . . wav"
+   "Supported formats"
+    "Audio: mp3, aac, m4a, flac, wav, ogg, opus"
+    "Video: mp4, mkv, avi, mov, webm, flv, wmv"
+  )
 
-  # Check if the input folder exists
-  if [[ ! -d "$input_folder" ]]; then
-    echo "Error: The folder '$input_folder' does not exist.\nUsage: fn_convert_media_batch <input_folder> <output_folder> <output_extension> \"<ffmpeg_options>\""
+  if [[ "$input_folder" == "-h" || "$input_folder" == "--help" ]]; then
+    printf "%s\n" "${usage[@]}"
+    return 0
+  fi
+
+  if [[ ! -d "$input_folder" || ! -d "$output_folder" ]]; then
+    printf "\n\t Both input_folder and output_folder are required and must exist.\n"
+    printf "\n%s" "${usage[@]}"
     return 1
   fi
 
-  # Check if the output folder exists, create it if not
-  if [[ ! -d "$output_folder" ]]; then
-    mkdir -p "$output_folder" || {
-      echo "Error: Failed to create output folder '$output_folder'."
-      return 1
-    }
-  fi
-
-  # Check if the output extension is specified
   if [[ -z "$output_ext" ]]; then
-    echo "Error: No output file extension specified."
+    printf "\n\t No output file extension specified.\n"
+    printf "\n%s" "${usage[@]}"
     return 1
   fi
 
-  # Map the extension to the FFmpeg muxer name
   local format
   case "${output_ext#.}" in
     mkv) format="matroska" ;;
@@ -36,29 +46,33 @@ fn_convert_media_batch() {
     *) format="${output_ext#.}" ;;
   esac
 
-  # Check if the format is supported by FFmpeg
   if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
-    echo "Error: The format '$format' is not supported by FFmpeg."
+    echo "Error: The format ${format} is not supported by FFmpeg."
+    printf "\n%s" "${usage[@]}"
     return 1
   fi
 
-  # Process each file in the input folder
+  shift 3
+  local ffmpeg_options=("$@")
+
   for input_file in "$input_folder"/*; do
     if [[ -f "$input_file" ]]; then
-      # Generate the output file name
-      local base_name=$(basename "$input_file" | sed 's/\.[^.]*$//')
-      local output_file="$output_folder/$base_name.$output_ext"
-
-      # Check if the output file already exists
-      if [[ -f "$output_file" ]]; then
-        echo "Skipping '$input_file': Output file '$output_file' already exists."
+      local ext="${input_file##*.}"
+      ext="${ext:l}"
+      if [[ " $supported_exts " != *" $ext "* ]]; then
         continue
       fi
 
-      # Run the FFmpeg command using eval to handle the options string
-      eval ffmpeg -i "$input_file" $ffmpeg_options "$output_file" || {
-        echo "Error: Failed to convert '$input_file'."
-      }
+      local base_name
+      base_name=$(basename "$input_file" | sed "s/\.[^.]*$//")
+      local output_file="${output_folder}/${base_name}.${output_ext}"
+
+      if [[ -f "$output_file" ]]; then
+        echo "Output file ${output_file} already exists."
+        continue
+      fi
+
+      ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file" || echo "Failed to convert ${input_file}."
     fi
   done
 }
