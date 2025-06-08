@@ -3,21 +3,26 @@
 fn_convert_media() {
   local input_file="$1"
   local output_ext="$2"
-  local ffmpeg_options="$3"
+  local supported_exts=" mp3 aac m4a flac wav ogg opus mp4 mkv avi mov webm flv wmv "
   local usage=(
-    "Usage: fn_convert_media input_file output_extension [\"ffmpeg_options\"]"
+    "Usage: fn_convert_media input_file output_extension [ffmpeg_options]"
     "Convert a media file to another format using FFmpeg."
     "Arguments:"
-    "  input_file         Required. Path to the input media file."
-    "  output_extension   Required. Desired output file extension (e.g., mkv, mp3, aac)."
-    "  [ffmpeg_options]   Optional. Additional FFmpeg options as a double quoted string."
+    "  input_file        Required. Path to input media file."
+    "  output_extension  Required. Desired output file extension (e.g., mkv, mp3, aac)."
+    "  ffmpeg_options    Optional. Additional FFmpeg options."
     "Example:"
-    "  fn_convert_media input.mp4 mkv \"-c:v copy -c:a aac\""
+    "  fn_convert_media input.mp4 mkv -c:v copy -c:a aac"
+    "  fn_convert_media input.mp3 wav"
+    "  fn_convert_media input.mp3 wav -c:a libmp3lame -b:a 192k"
+    "Supported formats"
+    "Audio: mp3, aac, m4a, flac, wav, ogg, opus"
+    "Video: mp4, mkv, avi, mov, webm, flv, wmv"
   )
 
   if [[ "$input_file" == "-h" || "$input_file" == "--help" ]]; then
     printf "%s\n" "${usage[@]}"
-    return 1
+    return 0
   fi
 
   if [[ -z "$input_file" || -z "$output_ext" ]]; then
@@ -26,8 +31,18 @@ fn_convert_media() {
     return 1
   fi
 
+  shift 2
+  local ffmpeg_options=("$@")
+
   if [[ ! -f "$input_file" ]]; then
-    printf "Error: The file \"%s\" does not exist." "$input_file"
+    printf "Error: The file %s does not exist." "$input_file"
+    return 1
+  fi
+
+  local ext="${input_file##*.}"
+  ext="${ext:l}"
+  if [[ " $supported_exts " != *" $ext "* ]]; then
+    echo "Error: Extension .$ext is not supported."
     return 1
   fi
 
@@ -47,9 +62,9 @@ fn_convert_media() {
   local output_file="${input_file%.*}.$output_ext"
 
   if [[ -f "$output_file" ]]; then
-    echo "Error: The file ${output_file} already exists. Delete it or choose a different name."
+    echo "File ${output_file} already exists. Delete ${output_file} or choose different name."
     return 1
   fi
 
-  eval ffmpeg -i "$input_file" "$ffmpeg_options" "$output_file"
+  ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file"
 }
