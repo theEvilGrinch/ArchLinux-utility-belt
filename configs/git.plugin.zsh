@@ -420,6 +420,7 @@ alias grs="git reset --soft"
 alias gcp="gaa && gcs && git push"
 alias update_gh_pages='git push origin :gh-pages --force && git subtree push --prefix dist origin gh-pages'
 alias gmnf="git merge --no-ff"
+alias gld="git log --oneline --graph --decorate --all"
 
 unset git_version
 
