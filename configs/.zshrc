@@ -44,9 +44,7 @@ source $ZSH/oh-my-zsh.sh
 
 # System
 alias zconf="mcedit ~/.zshrc"
-alias clear_cache="sudo paccache -rk1 && sudo paccache -ruk0 && yay -Scc --noconfirm"
 alias clear_swap="sudo swapoff -a && sudo swapon -a"
-alias delete_orphans_package='sudo pacman -Rsn $(sudo pacman -Qdtq)'
 alias update_os='echo "\nUpdate mirrorlist\n" && update_mirrorlist && echo "\nUpdate official repo\n" && sudo pacman -Syyu && echo "\nUpdate AUR\n" && yay -Syyu'
 alias update_os_force='update_mirrorlist && sudo pacman -Syyu --noconfirm && yay -Syyu --noconfirm'
 alias update_os_and_reboot='sudo pacman -Syyu && yay -Syyu && sudo reboot'
@@ -57,13 +55,16 @@ alias off="sudo shutdown --no-wall"
 alias rb="sudo systemctl reboot"
 
 # PKG's
-alias pmr='sudo pacman -R'
+alias pmr='sudo pacman -Rns'
+alias pm_check_orphans="pacman -Qdtq"
+alias pm_clear_orphans="sudo pacman -Rns $(pacman -Qdtq)"
+alias pm_clear_cache='sudo paccache -rk1 && sudo paccache -ruk0 && yay -Scc --noconfirm'
 alias pms='sudo pacman -S'
 alias pmss='sudo pacman -Ss'
 alias rmdb='sudo rm /var/lib/pacman/db.lck'
 alias ys="yay -S"
 alias yss="yay -Ss"
-alias yr="yay -R"
+alias yr="yay -Rns"
 
 # Docker
 alias dc="docker"
