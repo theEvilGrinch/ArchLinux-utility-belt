@@ -2,7 +2,7 @@
 
 # Git version checking
 autoload -Uz is-at-least
-git_version="${${(As: :)$(git version 2>/dev/null)}[3]}"
+git_version="$(git version 2>/dev/null | awk '{print $3}')"
 
 #
 # Functions Current
@@ -210,7 +210,9 @@ alias gdcw='git diff --cached --word-diff'
 alias gds='git diff --staged'
 alias gdw='git diff --word-diff'
 
-function gdv() { git diff -w "$@" | view - }
+function gdv() {
+  git diff -w "$@" | view -
+}
 compdef _git gdv=git-diff
 
 alias gdup='git diff @{upstream}'
