@@ -92,5 +92,6 @@ alias e="mcedit"
 alias b="btop"
 alias td="mktemp -d -p ."
 alias tf="mktemp -p ."
+alias gh="$HOME/github/"
 
 unsetopt nomatch
