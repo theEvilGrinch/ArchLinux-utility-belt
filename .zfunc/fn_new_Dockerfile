@@ -1,13 +1,30 @@
-# $HOME/.zfunc/
-function fn_new_Dockerfile() {
-    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
-        echo "Usage: fn_new_Dockerfile [path]"
-        echo "Create a new Dockerfile from template"
-        echo "Arguments:"
-        echo "  path    Optional. Path where to create the file (default: current directory)"
-        return 0
-    fi
+# $HOME/.zfunc
+fn_new_Dockerfile() {
+  local path="${1:-./}"
+  local usage=(
+    "Usage: fn_new_Dockerfile [path]"
+    "Create a new Dockerfile from the template"
+    "Arguments:"
+    "  path    Optional. Directory where the file will be created (default: current working directory)"
+  )
 
-    local path="${1:-./}"
-    /bin/cp "${HOME}/templates/Dockerfile" "${path}/Dockerfile"
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+      printf "%s\n" "${usage[@]}"
+      return 0
+  fi
+
+  if [[ ! -d "$path" ]]; then
+      printf "Error: Directory %s does not exist\n" "$path"
+      return 1
+  fi
+
+  if [[ ! -f "${HOME}/templates/Dockerfile" ]]; then
+      printf "Error: Template file not found at %s\n" "${HOME}/templates/Dockerfile"
+      return 1
+  fi
+
+  /bin/cp "${HOME}/templates/Dockerfile" "${path}/Dockerfile" || {
+      printf "Error: Failed to copy template to %s\n" "${path}/Dockerfile"
+      return 1
+  }
 }

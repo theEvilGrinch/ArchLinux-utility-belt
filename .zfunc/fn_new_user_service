@@ -1,22 +1,38 @@
-# $HOME/.zfunc/
-function fn_new_user_service() {
-    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
-        echo "Usage: fn_new_user_service [unit name] [path]"
-        echo "Create a new user-level Systemd service unit from template"
-        echo "Arguments:"
-        echo "  unit name  Required. Name for the service unit file, without extension"
-        echo "  path       Optional. Path where to create the file (default: current directory)"
-        return 0
-    fi
+# $HOME/.zfunc
+fn_new_user_service() {
+  local unit_name="$1"
+  local path="${2:-./}"
+  local usage=(
+    "Usage: fn_new_user_service unit_name [path]"
+    "Create a new user-level systemd service unit from the template"
+    "Arguments:"
+    "  unit_name  Required. Name for a new service unit file, without extension"
+    "  path       Optional. Directory where the file will be created (default: current working directory)"
+  )
 
-    if [[ -z $1 ]]; then
-        echo "Enter unit name."
-        echo "Run 'fn_new_user_service -h' to see usage"
-        return 1
-    fi
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+      printf "%s\n" "${usage[@]}"
+      return 0
+  fi
 
-    local unit_name="${1}"
-    local path="${2:-./}"
+  if [[ -z "$unit_name" ]]; then
+      printf "Error: unit_name is required\n"
+      printf "%s\n" "${usage[@]}"
+      return 1
+  fi
 
-    /bin/cp "${HOME}/templates/example-user.service" "${path}/${unit_name}.service"
+  if [[ ! -d "$path" ]]; then
+      printf "Error: Directory %s does not exist\n" "$path"
+      return 1
+  fi
+
+  if [[ ! -f "${HOME}/templates/example-user.service" ]]; then
+      printf "Error: Template file not found at %s\n" "${HOME}/templates/example-user.service"
+      return 1
+  fi
+
+  /bin/cp "${HOME}/templates/example-user.service" "${path}/${unit_name}.service" || {
+      printf "Error: Failed to copy template to %s\n" "${path}/${unit_name}.service"
+      return 1
+  }
 }

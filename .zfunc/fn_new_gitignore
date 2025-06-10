@@ -1,17 +1,30 @@
-# $HOME/.zfunc/
-function fn_new_gitignore() {
+# $HOME/.zfunc
+fn_new_gitignore() {
   local path="${1:-./}"
   local usage=(
     "Usage: fn_new_gitignore [path]"
-    "Create a new .gitignore file from template"
+    "Create a new .gitignore file from the template"
     "Arguments:"
-    "  path    Optional. Path where to create the file (default: current directory)"
+    "  path    Optional. Directory where the file will be created (default: current working directory)"
   )
 
-  if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
       printf "%s\n" "${usage[@]}"
       return 0
   fi
 
-  /bin/cp "${HOME}/templates/.gitignore" "${path}/.gitignore"
+  if [[ ! -d "$path" ]]; then
+      printf "Error: Directory %s does not exist\n" "$path"
+      return 1
+  fi
+
+  if [[ ! -f "${HOME}/templates/.gitignore" ]]; then
+      printf "Error: Template file not found at %s\n" "${HOME}/templates/.gitignore"
+      return 1
+  fi
+
+  /bin/cp "${HOME}/templates/.gitignore" "${path}/.gitignore" || {
+      printf "Error: Failed to copy template to %s\n" "${path}/.gitignore"
+      return 1
+  }
 }

@@ -1,15 +1,32 @@
-# $HOME/.zfunc/
-function fn_new_desktop_file() {
-    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
-        echo "Usage: fn_new_desktop_file [filename] [path]"
-        echo "Create a new .desktop file from template"
-        echo "Arguments:"
-        echo "  filename    Optional. Name of the .desktop file, without extension (default: desktop-file.desktop)"
-        echo "  path        Optional. Path where to create the file (default: current directory)"
-        return 0
-    fi
+# $HOME/.zfunc
+fn_new_desktop_file() {
+  local filename="${1:-desktop-file}"
+  local path="${2:-./}"
+  local usage=(
+      "Usage: fn_new_desktop_file [filename] [path]"
+      "Create a new .desktop file from the template"
+      "Arguments:"
+      "  filename    Optional. Name of the .desktop file, without extension (default: desktop-file.desktop)"
+      "  path        Optional. Directory where the file will be created (default: current working directory)"
+  )
 
-    local filename="${1:-desktop-file}"
-    local path="${2:-./}"
-    /bin/cp "${HOME}/templates/desktop-file.desktop" "${path}/${filename}.desktop"
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+      printf "%s\n" "${usage[@]}"
+      return 0
+  fi
+
+  if [[ ! -d "$path" ]]; then
+      printf "Error: Directory %s does not exist\n" "$path"
+      return 1
+  fi
+
+  if [[ ! -f "${HOME}/templates/desktop-file.desktop" ]]; then
+      printf "Error: Template file not found at %s\n" "${HOME}/templates/desktop-file.desktop"
+      return 1
+  fi
+
+  /bin/cp "${HOME}/templates/desktop-file.desktop" "${path}/${filename}.desktop" || {
+      printf "Error: Failed to copy template to %s\n" "${path}/${filename}.desktop"
+      return 1
+  }
 }

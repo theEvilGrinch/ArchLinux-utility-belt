@@ -1,66 +1,97 @@
-# $HOME/.zfunc/fn_optimize_images
-# Usage: fn_optimize_images <source_folder> <target_folder>
-
+# $HOME/.zfunc
 fn_optimize_images() {
-  src_dir="$1"
-  dest_dir="$2"
-  
-  if [[ $# -ne 2 ]]; then
-    echo "Usage: fn_optimize_images <source_folder> <target_folder>"
+  emulate -L zsh
+  setopt extended_glob
+
+  local input_folder="${1:-"."}"
+  local output_folder="${2:-"."}"
+  local usage=(
+    "Usage: fn_optimize_images [input_folder] [output_folder]"
+    "Optimize images in source folder and save to target folder"
+    "Arguments:"
+    "  input_folder      Optional. Path to input folder (default: current working directory)."
+    "  output_folder     Optional. Path to output folder (default: current working directory)."
+    "Behavior:"
+    "  When both input and output folders point to the current directory, or when"
+    "  the specified output folder does not exist, a timestamped subfolder will be"
+    "  created automatically (format: img_DD-MM-YYYY_HH:MM:SS) to prevent"
+    "  overwriting original images."
+    "Supported formats: png, jpg, jpeg, webp, svg, avif"
+    "Required tools: pngquant, jpegoptim, cwebp, svgo, magick"
+  )
+
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    printf "%s\n" "${usage[@]}"
+    return 0
+  fi
+
+  if [[ ! -d "$input_folder" ]]; then
+    printf "Error: Source folder '%s' does not exist\n" "$input_folder"
     return 1
   fi
 
-  if [ ! -d "$src_dir" ]; then
-    echo "Error: folder '$src_dir' does not exist"
-    return 1
+  [[ "$input_folder" == "./" ]] && input_folder="."
+  [[ "$output_folder" == "./" ]] && output_folder="."
+
+  if [[ "$input_folder" == "." && "$output_folder" == "." || ! -d "$output_folder" ]]; then
+    output_folder="./img_$(date "+%d-%m-%Y_%H:%M:%S")"
+    mkdir "$output_folder" || {
+      printf "Error: Failed to create output directory '%s'\n" "$output_folder"
+      return 1
+    }
+    printf "Created output folder: %s\n" "$output_folder"
   fi
-  
+
   for util in pngquant jpegoptim cwebp svgo magick; do
     if ! command -v "$util" >/dev/null 2>&1; then
-      echo "Error: utility '$util' is not installed"
+      printf "Error: Utility '%s' is not installed\n" "$util"
       return 1
     fi
   done
-  
-  mkdir -p "$dest_dir"
 
-  for file in "$src_dir"/*.{png,jpg,jpeg,webp,svg,avif}; do
-    if [ ! -f "$file" ]; then
-      continue
-    fi
+  # shellcheck disable=SC1073,SC1009,SC1036,SC1072
+  local files=("$input_folder"/*.(#i)(png|jpg|jpeg|webp|svg|avif)(N))
 
+  if [[ ${#files[@]} -eq 0 ]]; then
+    printf "Warning: No supported files found in folder.\n"
+    return 1
+  fi
+
+  for file in "${files[@]}"; do
+    local filename
     filename=$(basename "$file")
-    extension="${filename##*.}"
-    output_file="$dest_dir/$filename"
+    local extension="${filename:e:l}"
+    local output_file="$output_folder/$filename"
 
-    echo "Processing $filename ($extension)..."
+    printf "Processing %s (%s)...\n" "$filename" "$extension"
     case "$extension" in
       png)
-        pngquant --quality 65-80 "$file" --output "$output_file" || { echo "Error: $filename (pngquant)"; continue; }
-        echo "Optimized: $filename (pngquant)"
+        pngquant --quality 65-80 "$file" --output "$output_file" || {
+          printf "Error: Failed to optimize %s with pngquant\n" "$filename"
+        }
         ;;
       jpg|jpeg)
-        jpegoptim --max=60 --strip-all "$file" --dest "$dest_dir" || { echo "Error: $filename (jpegoptim)"; continue; }
-        echo "Optimized: $filename (jpegoptim)"
+        jpegoptim --max=60 --strip-all "$file" --dest "$output_folder" || {
+          printf "Error: Failed to optimize %s with jpegoptim\n" "$filename"
+        }
         ;;
       webp)
-        cwebp -q 60 -m 4 "$file" -o "$output_file" || { echo "Error: $filename (cwebp)"; continue; }
-        echo "Optimized: $filename (cwebp)"
+        cwebp -q 60 -m 4 "$file" -o "$output_file" || {
+          printf "Error: Failed to optimize %s with cwebp\n" "$filename"
+        }
         ;;
       svg)
-        svgo --input "$file" --output "$output_file" || { echo "Error: $filename (svgo)"; continue; }
-        echo "Optimized: $filename (svgo)"
+        svgo --input "$file" --output "$output_file" || {
+          printf "Error: Failed to optimize %s with svgo\n" "$filename"
+        }
         ;;
       avif)
-        magick "$file" -quality 50 "$output_file" || { echo "Error: $filename (convert)"; continue; }
-        echo "Optimized: $filename (convert)"
-        ;;
-      *)
-        echo "Skipped format: $filename"
-        continue
+        magick "$file" -quality 50 "$output_file" || {
+          printf "Error: Failed to optimize %s with magick\n" "$filename"
+        }
         ;;
     esac
   done
 
-  echo "Optimization completed!"
+  printf "Optimization completed!"
 }

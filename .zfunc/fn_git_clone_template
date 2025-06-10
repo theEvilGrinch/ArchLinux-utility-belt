@@ -1,43 +1,52 @@
-#$HOME/.zfunc/fn_git_clone_template
-
+# $HOME/.zfunc
 fn_git_clone_template() {
   local repo_url="$1"
   local branch=${2:-master}
   local input_project_name="$3"
-  local tmp_dir=$(mktemp -d)
-  local project_name=$(basename "$PWD")
+  local usage=(
+    "Usage: fn_git_clone_template git-repo-url [source-branch] [new-project-name]"
+    "Clone a Git repository as a template without its Git history."
+    "Arguments:"
+    "  git-repo-url      Required. The URL of the Git repository to clone (HTTPS or SSH)."
+    "  source-branch     Optional. The branch to clone from (default: master)."
+    "  new-project-name  Optional. The name for the new project directory (default: current working directory)."
+    "Behavior:"
+    "If source-branch is omitted, master is used."
+    "If new-project-name is omitted, files are copied into the current working directory."
+    "The original .git directory is removed. A new Git repository is initialized."
+  )
+  local tmp_dir
+  tmp_dir=$(mktemp -d)
 
-  if [[ -z "$repo_url" || "$repo_url" == "-h" || "$repo_url" == "--help" ]]; then
-    echo "
-    Usage:
-      fn_git_clone_template <git-repo-url> [source-branch] [new-project-name]
+  if [[ "$repo_url" == "-h" || "$repo_url" == "--help" ]]; then
+    printf "%s\n" "${usage[@]}"
+    return 0
+  fi
 
-    Arguments:
-      <git-repo-url>      Required. The URL of the Git repository to clone.
-      [new-project-name]  Optional. The name for the new project directory.
-      [source-branch]     Optional. The branch from which files will be copied.
-                          Defaults to \"master\" if not specified.
-
-    Behavior:
-      - If [source-branch] is omitted, the function will use the \"master\" branch as the source.
-      - If [new-project-name] is not provided, the files from the specified [source-branch]
-        will be copied directly into the current working directory.
-      - If [new-project-name] is specified, a new directory with this name will be created,
-        and the files from the [source-branch] will be copied into it.
-      - The .git directory from the original repository will not be copied.
-        Instead, a new, empty Git repository will be initialized in the destination.
-    "
+  if [[ -z "$repo_url" ]]; then
+    printf "Error: git-repo-url is required\n"
+    printf "%s\n" "${usage[@]}"
     return 1
   fi
 
-  if [[ "$input_project_name" ]]; then
-    mkdir ./$input_project_name
-    cd ./$input_project_name
+  if [[ -n "$input_project_name" ]]; then
+    mkdir -p "./$input_project_name" || {
+      printf "Error: Failed to create directory %s\n" "$input_project_name"
+      return 1
+    }
+    cd "./$input_project_name" || {
+      printf "Error: Failed to change to directory %s\n" "$input_project_name"
+      return 1
+    }
   fi
 
-  git clone --depth 1 --single-branch --branch "$branch" "$repo_url" "$tmp_dir" \
-  && rm -rf "$tmp_dir/.git" \
-  && cp -r "$tmp_dir/"* "$tmp_dir/".* ./ \
-  && rm -rf "$tmp_dir" \
-  && git init
+  git clone --depth 1 --single-branch --branch "$branch" "$repo_url" "$tmp_dir" || {
+    printf "Error: Failed to clone repository %s\n" "$repo_url"
+    return 1
+  }
+
+  rm -rf "$tmp_dir/.git" || printf "Warning: Failed to remove .git directory\n"
+  cp -r "$tmp_dir/"* "$tmp_dir/".* ./ 2>/dev/null || printf "Warning: Failed to copy some files\n"
+  rm -rf "$tmp_dir" || printf "Warning: Failed to remove temporary directory\n"
+  git init || printf "Warning: Failed to initialize git repository\n"
 }

@@ -1,5 +1,4 @@
-# $HOME/.zfunc/
-
+# $HOME/.zfunc
 fn_convert_media() {
   local input_file="$1"
   local output_ext="$2"
@@ -26,7 +25,7 @@ fn_convert_media() {
   fi
 
   if [[ -z "$input_file" || -z "$output_ext" ]]; then
-    printf "\n\t input_file and output_extension required\n\n"
+    printf "Error: input_file and output_extension required\n"
     printf "%s\n" "${usage[@]}"
     return 1
   fi
@@ -35,14 +34,14 @@ fn_convert_media() {
   local ffmpeg_options=("$@")
 
   if [[ ! -f "$input_file" ]]; then
-    printf "Error: The file %s does not exist." "$input_file"
+    printf "Error: The file %s does not exist\n" "$input_file"
     return 1
   fi
 
   local ext="${input_file##*.}"
   ext="${ext:l}"
   if [[ " $supported_exts " != *" $ext "* ]]; then
-    echo "Error: Extension .$ext is not supported."
+    printf "Error: Extension .%s is not supported\n" "$ext"
     return 1
   fi
 
@@ -55,16 +54,19 @@ fn_convert_media() {
   esac
 
   if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
-    echo "Error: The format ${format} is not supported by FFmpeg."
+    printf "Error: The format %s is not supported by FFmpeg\n" "$format"
     return 1
   fi
 
   local output_file="${input_file%.*}.$output_ext"
 
   if [[ -f "$output_file" ]]; then
-    echo "File ${output_file} already exists. Delete ${output_file} or choose different name."
+    printf "Error: File %s already exists. Delete %s or choose different name\n" "$output_file" "$output_file"
     return 1
   fi
 
-  ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file"
+  ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file" || {
+    printf "Error: Failed to convert %s to %s\n" "$input_file" "$output_file"
+    return 1
+  }
 }

@@ -26,14 +26,30 @@ This directory contains ZSH functions that provide additional functionality and 
 All functions prefixed with `fn_new*` require the presence of corresponding template files in the ~/templates directory. Example templates are provided in the [templates](../templates) directory of this repository. Ensure these files are available on your system for the functions to work correctly.
 
 ### fn_youtube_video_translate
-Downloads a YouTube video, translates its audio track to Russian using `vot-cli` and Yandex API, and merges the translated audio with the original video using `ffmpeg`. Requires an Nvidia GPU for CUDA acceleration, remove `-hwaccel cuda` if unavailable. Uses Firefox cookies for `yt-dlp` by default, adjust or remove `--cookies-from-browser firefox` if you use a different browser. The `--concurrent-fragments 24` option in `yt-dlp` enables parallel downloads, reduce this value on low-performance systems.
+Downloads a YouTube video, translates its audio track to Russian using `vot-cli` and Yandex API, and merges the translated audio with the original video using `ffmpeg`. Uses Firefox cookies for `yt-dlp` by default - adjust or remove `--cookies-from-browser firefox` if you use a different browser. The `--concurrent-fragments 24` option in `yt-dlp` enables parallel downloads; reduce this value on low-performance systems.
 
 **Usage:**  
 `fn_youtube_video_translate project_name video_url`
 
 **Arguments:**
-- `project_name`: Required. Name of the project folder and files to be created.
-- `video_url`: Required. URL of the YouTube video to download and translate.
+- `project_name`: Required. Name of the project folder and files to be created
+- `video_url`:    Required. URL of the YouTube video to download and translate
+
+**Behavior:**
+1. Creates project directory: `~/videos/translate/src/<project_name>/`
+2. Uses `vot-cli` to extract and translate audio to MP3 format
+3. Downloads video using `yt-dlp` with best quality MP4 format
+4. Merges original video with translated audio using `ffmpeg`
+5. Outputs final video as: `~/videos/translate/<project_name>_final.mp4`
+6. Warns if project directory already exists and asks for confirmation
+7. Automatically cleans up temporary files if process fails
+
+**Dependencies:**
+- `vot-cli` - for audio extraction and translation
+- `yt-dlp` - for video downloading
+- `ffmpeg` - for video/audio merging
+
+**Note:** Requires hardware acceleration support for optimal performance. The function uses `--hwaccel auto` to automatically detect available acceleration.
 
 ---
 
@@ -41,11 +57,14 @@ Downloads a YouTube video, translates its audio track to Russian using `vot-cli`
 Optimizes images in a source directory and saves the results to a target directory. Automatically selects the appropriate tool for each format: `pngquant` for PNG, `jpegoptim` for JPEG, `cwebp` for WEBP, `svgo` for SVG, and `magick` for AVIF.
 
 **Usage:**  
-`fn_optimize_images source_folder target_folder`
+`fn_optimize_images [input_folder] [output_folder]`
 
 **Arguments:**
-- `source_folder`: Required. Path to the source folder containing images to optimize.
-- `target_folder`: Required. Path to the folder where optimized images will be saved.
+- `input_folder`:  Optional. Path to input folder (default: current working directory).
+- `output_folder`: Optional. Path to output folder (default: current working directory).
+
+**Behavior:**
+When both input and output folders point to the current directory, or when the specified output folder does not exist, a timestamped subfolder will be created automatically (format: img_DD-MM-YYYY_HH:MM:SS) to prevent overwriting original images.
 
 **Dependencies:**
 - `pngquant`

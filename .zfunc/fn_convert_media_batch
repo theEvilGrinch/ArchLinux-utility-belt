@@ -1,5 +1,4 @@
-# $HOME/.zfunc/
-
+# $HOME/.zfunc
 fn_convert_media_batch() {
   local input_folder="$1"
   local output_folder="$2"
@@ -16,25 +15,25 @@ fn_convert_media_batch() {
     "Example:"
     "  fn_convert_media_batch ./folder1 ./folder2 mkv -c:v copy -c:a aac"
     "  fn_convert_media_batch . . wav"
-   "Supported formats"
+    "Supported formats"
     "Audio: mp3, aac, m4a, flac, wav, ogg, opus"
     "Video: mp4, mkv, avi, mov, webm, flv, wmv"
   )
 
   if [[ "$input_folder" == "-h" || "$input_folder" == "--help" ]]; then
     printf "%s\n" "${usage[@]}"
-    return 0
+    ret
   fi
 
   if [[ ! -d "$input_folder" || ! -d "$output_folder" ]]; then
-    printf "\n\t Both input_folder and output_folder are required and must exist.\n"
-    printf "\n%s" "${usage[@]}"
+    printf "Error: Both input_folder and output_folder are required and must exist\n"
+    printf "%s\n" "${usage[@]}"
     return 1
   fi
 
   if [[ -z "$output_ext" ]]; then
-    printf "\n\t No output file extension specified.\n"
-    printf "\n%s" "${usage[@]}"
+    printf "Error: No output file extension specified\n"
+    printf "%s\n" "${usage[@]}"
     return 1
   fi
 
@@ -47,8 +46,8 @@ fn_convert_media_batch() {
   esac
 
   if ! ffmpeg -muxers 2>/dev/null | grep -qw "$format"; then
-    echo "Error: The format ${format} is not supported by FFmpeg."
-    printf "\n%s" "${usage[@]}"
+    printf "Error: The format %s is not supported by FFmpeg\n" "$format"
+    printf "%s\n" "${usage[@]}"
     return 1
   fi
 
@@ -68,11 +67,14 @@ fn_convert_media_batch() {
       local output_file="${output_folder}/${base_name}.${output_ext}"
 
       if [[ -f "$output_file" ]]; then
-        echo "Output file ${output_file} already exists."
+        printf "Warning: Output file %s already exists. Skipping\n" "$output_file"
         continue
       fi
 
-      ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file" || echo "Failed to convert ${input_file}."
+      printf "Converting %s to %s\n" "$input_file" "$output_file"
+      ffmpeg -i "$input_file" "${ffmpeg_options[@]}" "$output_file" || {
+        printf "Error: Failed to convert %s\n" "$input_file"
+      }
     fi
   done
 }
