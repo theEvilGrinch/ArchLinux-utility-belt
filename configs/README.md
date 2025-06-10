@@ -12,7 +12,6 @@ This directory contains configuration files for system components and applicatio
   - [Custom Oh My ZSH Plugins](#custom-oh-my-zsh-plugins)
     - [Web Search Plugin](#web-search-plugin)
     - [Git Plugin](#git-plugin)
-  - [Git Plugin](#git-plugin)
   - [Apache Configuration](#apache-configuration)
 - [Notes](#notes)
 
@@ -33,7 +32,7 @@ This directory contains configuration files for system components and applicatio
 
 > **Note:**  
 > `.env` and `.env_priv` files must exist in the configuration directory.  
-> If you do not use these files, remove or comment out the corresponding following block in `.zshrc` to avoid errors:
+> If you do not use these files, remove or comment out the corresponding lines in `.zshrc` to avoid errors:
 ```bash
   set -a
   source $HOME/.env
