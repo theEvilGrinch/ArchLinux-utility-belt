@@ -18,11 +18,11 @@ A comprehensive collection of template files for system configurations and devel
 
 ## Development Workflow
 ### Git
-`.gitignore` - Comprehensive Git ignore template
+`.gitignore` - Comprehensive Git ignore template for development projects
 - Excludes common development artifacts and temporary files
-- Covers major IDEs and editors (VSCode, JetBrains, Sublime, Vim, Emacs)
-- Includes language-specific patterns for Node.js projects
-- Handles OS-specific files (macOS, Windows)
+- Covers major IDEs and editors (VS Code, JetBrains, Sublime, Zed, Vim, Emacs)
+- Includes specific rules for Node.js, React, React Native, Angular, Go, and more
+- Handles OS-specific files (macOS, Linux, Windows)
 
 `git-commit-template_en.txt` - Structured git commit message template with English annotations
 - Enforces consistent commit message format
@@ -41,7 +41,7 @@ A comprehensive collection of template files for system configurations and devel
 - Standard Node.js project structure
 - Basic npm workflow configuration
 
-`docker-compose.yaml` – Template for multi-container Docker applications  
+`docker-compose.yaml` - Template for multi-container Docker applications  
 - Defines isolated services 
 - Maps host ports to container ports for local development
 - Mounts project directories as volumes for live code updates
