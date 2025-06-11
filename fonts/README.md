@@ -33,7 +33,7 @@ sudo fc-cache -f -v
 fc-cache -f -v
 ```
 
-Verification
+## Verification
 To verify that the fonts have been installed correctly, you can list fonts using:
 ```zsh
 fc-list | grep -i "FiraCode\|MartianMono\|OpenSans\|SF-Pro-Display\|sft"
