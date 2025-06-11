@@ -139,8 +139,10 @@ node_modules/
 bower_components/
 # IDEs and editors
 .idea/
-.junie/
 .zed
+#Ai
+.junie/
+.windsurfrules
 # misc
 .sass-cache/
 connect.lock/
