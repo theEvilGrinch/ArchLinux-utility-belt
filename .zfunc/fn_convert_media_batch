@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # $HOME/.zfunc
 fn_convert_media_batch() {
   local input_folder="$1"

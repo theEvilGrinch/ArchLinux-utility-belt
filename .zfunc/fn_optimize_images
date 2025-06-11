@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # $HOME/.zfunc
 fn_optimize_images() {
   emulate -L zsh
@@ -66,17 +67,17 @@ fn_optimize_images() {
     printf "Processing %s (%s)...\n" "$filename" "$extension"
     case "$extension" in
       png)
-        pngquant --quality 65-80 "$file" --output "$output_file" || {
+        pngquant --quality 75-80 "$file" --output "$output_file" || {
           printf "Error: Failed to optimize %s with pngquant\n" "$filename"
         }
         ;;
       jpg|jpeg)
-        jpegoptim --max=60 --strip-all "$file" --dest "$output_folder" || {
+        jpegoptim --max=70 --strip-all "$file" --dest "$output_folder" || {
           printf "Error: Failed to optimize %s with jpegoptim\n" "$filename"
         }
         ;;
       webp)
-        cwebp -q 60 -m 4 "$file" -o "$output_file" || {
+        cwebp -q 70 -m 4 "$file" -o "$output_file" || {
           printf "Error: Failed to optimize %s with cwebp\n" "$filename"
         }
         ;;
@@ -86,7 +87,7 @@ fn_optimize_images() {
         }
         ;;
       avif)
-        magick "$file" -quality 50 "$output_file" || {
+        magick "$file" -quality 60 "$output_file" || {
           printf "Error: Failed to optimize %s with magick\n" "$filename"
         }
         ;;

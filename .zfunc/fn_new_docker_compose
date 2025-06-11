@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # $HOME/.zfunc
 fn_new_docker_compose() {
   local path="${1:-./}"

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # $HOME/.zfunc
 fn_new_libreoffice_doc() {
   local document_name="$1"

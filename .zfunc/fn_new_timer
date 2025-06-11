@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # $HOME/.zfunc
 fn_new_timer() {
   local unit_name="$1"
