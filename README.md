@@ -88,6 +88,7 @@ ArchLinux-utility-belt/
 │   ├── fn_convert_media            # Media format conversion
 │   ├── fn_convert_media_batch      # Bulk media conversion
 │   ├── fn_git_clone_template       # Clone without git history
+│   ├── fn_init_repo                # Initialize git repository with basic files
 │   ├── fn_new_gitignore            # Generate .gitignore from template
 │   ├── fn_new_libreoffice_doc      # Create formatted LibreOffice document
 │   ├── fn_new_Dockerfile           # Generate Dockerfile template
