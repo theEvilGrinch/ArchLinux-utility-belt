@@ -1,0 +1,106 @@
+#!/usr/bin/env zsh
+# $HOME/.zfunc
+fn_ask_ai() {
+  local usage=(
+    "Usage: ${0##*/} [OPTIONS]"
+    "Interactive AI chat using OpenRouter API"
+    ""
+    "Options:"
+    "  -h, --help    Show this help message and exit"
+    ""
+    "Environment:"
+    "  OPENROUTER_API_KEY  Required. Your OpenRouter API key"
+    ""
+    "Security:"
+    "  For better security, store your API key in a separate file:"
+    "  1. Create ~/.secrets with:  export OPENROUTER_API_KEY='your-key'"
+    "  2. Secure it:               chmod 600 ~/.secrets"
+    "  3. Source it in ~/.zshrc:   source ~/.secrets"
+    ""
+    "Example:"
+    "  ${0##*/}          # Start interactive chat"
+    ""
+    "Get API key: https://openrouter.ai/keys"
+  )
+
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    printf '%s\n' "${usage[@]}"
+    return 0
+  fi
+
+  if ! command -v jq &> /dev/null; then
+    echo "Error: 'jq' is required but not installed" >&2
+    echo "Install it with: sudo pacman -S jq" >&2
+    return 1
+  fi
+
+  if [[ -z "$OPENROUTER_API_KEY" ]]; then
+    echo "Error: OPENROUTER_API_KEY is not set" >&2
+    printf '%s\n' "" "${usage[@]}" >&2
+    return 1
+  fi
+
+  local messages='[{"role":"system","content":"You are a helpful AI assistant that helps users with their questions and tasks."}]'
+  
+  local color_red="\033[0;31m"
+  local color_green="\033[0;32m"
+  local color_cyan="\033[0;36m"
+  local color_yellow="\033[0;33m"
+  local color_reset="\033[0m"
+
+  echo "${color_cyan}AI Chat Session (Press Ctrl+C to exit)${color_reset}"
+  echo "${color_cyan}-------------------------------------${color_reset}"
+
+  trap 'echo "\n${color_yellow}Ending chat session...${color_reset}"; return 0' INT
+
+  while true; do
+    echo -n "${color_green}You: ${color_reset}"
+    read -r user_input || break
+    
+    [[ -z "$user_input" ]] && continue
+
+    if ! messages=$(jq --arg content "$user_input" '. += [{"role":"user","content":$content}]' <<<"$messages" 2>/dev/null); then
+      echo "${color_red}Error: Failed to process input${color_reset}" >&2
+      continue
+    fi
+
+    messages=$(jq 'if length > 10 then .[-10:] else . end' <<<"$messages" 2>/dev/null)
+
+    if ! json_payload=$(jq -n \
+      --argjson messages "$messages" \
+      --arg model "deepseek/deepseek-r1-0528-qwen3-8b:free" \
+      '{model: $model, messages: $messages, temperature: 0.7}' 2>/dev/null); then
+      echo "${color_red}Error: Failed to prepare request${color_reset}" >&2
+      continue
+    fi
+
+    response=$(curl -s https://openrouter.ai/api/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+      -d "$json_payload" 2>/dev/null)
+
+    if [[ $? -ne 0 ]]; then
+      echo "${color_red}Error: Network error${color_reset}" >&2
+      continue
+    fi
+
+    error=$(jq -r '.error.message // empty' <<<"$response" 2>/dev/null)
+    if [[ -n "$error" ]]; then
+      echo "${color_red}API Error: $error${color_reset}" >&2
+      continue
+    fi
+
+    reply=$(jq -r '.choices[0].message.content // empty' <<<"$response" 2>/dev/null)
+    if [[ -z "$reply" ]]; then
+      echo "${color_cyan}AI: (empty response)${color_reset}"
+      continue
+    fi
+
+    echo "${color_cyan}AI: $reply${color_reset}"
+    
+    if ! messages=$(jq --arg content "$reply" '. += [{"role":"assistant","content":$content}]' <<<"$messages" 2>/dev/null); then
+      echo "${color_red}Error: Failed to update conversation${color_reset}" >&2
+      continue
+    fi
+  done
+}
