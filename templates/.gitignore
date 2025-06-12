@@ -143,6 +143,7 @@ bower_components/
 #Ai
 .junie/
 .windsurfrules
+.lingma
 # misc
 .sass-cache/
 connect.lock/

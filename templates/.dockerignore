@@ -38,6 +38,7 @@ web_modules/
 *.tgz
 .yarn-integrity
 .env
+.env_priv
 .env.development.local
 .env.test.local
 .env.production.local
@@ -107,8 +108,6 @@ Sessionx.vim
 .netrwhist
 tags
 [._]*.un~
-### Zed editor ###
-.zed
 ### Emacs ###
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -129,7 +128,6 @@ flycheck_*.el
 .dir-locals.el
 /network-security.data
 /build/
-.env_priv
 ### Angular ###
 # compiled output
 dist/
@@ -141,6 +139,11 @@ node_modules/
 bower_components/
 # IDEs and editors
 .idea/
+.zed
+#Ai
+.junie/
+.windsurfrules
+.lingma
 # misc
 .sass-cache/
 connect.lock/
