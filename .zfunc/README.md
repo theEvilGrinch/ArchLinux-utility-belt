@@ -14,6 +14,7 @@ A comprehensive collection of ZSH functions designed to streamline development w
     - [fn_convert_media](#fn_convert_media)
     - [fn_convert_media_batch](#fn_convert_media_batch)
   - [Development Tools](#development-tools)
+    - [fn_ask_ai](#fn_ask_ai)
     - [fn_git_clone_template](#fn_git_clone_template)
     - [fn_init_repo](#fn_init_repo)
   - [File Generators](#file-generators)
@@ -31,12 +32,11 @@ This collection provides custom ZSH functions that automate common development a
 
 ## Dependencies
 
-### Required
 - `ZSH` 5.0+ - shell environment
 - `git` - version control for Git-related functions
 - `nodejs` & `npm` - required for SVGO and other Node.js based tools
-
-### Media Processing
+- `jq` - JSON processor for AI chat functionality
+- `curl` - HTTP client for API communication
 - `ffmpeg` - media conversion and processing
 - `yt-dlp` - YouTube video downloading
 - `vot-cli` - video translation
@@ -266,6 +266,85 @@ fn_git_clone_template repo_url [branch] [project_name]
 fn_git_clone_template https://github.com/user/template.git
 fn_git_clone_template git@github.com:user/template.git main my-project
 ```
+
+#### fn_ask_ai
+
+Command-line interface for AI-powered chat using OpenRouter API, featuring context-aware conversations with persistent history.
+
+![fn_ask_ai Preview](fn-ask-ai-preview.png)
+
+**Usage:**  
+```bash
+  fn_ask_ai [Arguments]
+```
+
+**Arguments:**
+- `-h`, `--help` (optional):  Show help message and exit
+
+**Features:**
+- Interactive chat interface with context awareness (maintains last 10 messages)
+- Colorized terminal output
+- Secure API key handling through environment variables
+- Error handling for network and API issues
+- Multi-line input support
+- Graceful exit on Ctrl+C
+
+**Environment Setup:**
+
+Get API key: https://openrouter.ai/keys
+
+**Option 1 (Recommended):** Using a secure secrets file
+```bash
+# 1. Create a secure directory for secrets
+mkdir -p ~/.secrets
+chmod 700 ~/.secrets
+
+# 2. Add your API key to a secure file
+echo 'export OPENROUTER_API_KEY="your_api_key_here"' > ~/.secrets/api_keys
+chmod 600 ~/.secrets/api_keys
+
+# 3. Add to ~/.zshrc
+echo 'source ~/.secrets/api_keys' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**Option 2:** Directly in shell config
+```bash
+# Add to ~/.zshrc
+export OPENROUTER_API_KEY='your_api_key_here'
+```
+
+Important: If you're using version control, add this line to your ~/.gitignore to prevent committing sensitive data:
+```
+.secrets/
+```
+
+**Requires:**
+- `curl` (v7.68.0+) - HTTP client
+- `jq` (v1.6+) - JSON processor
+
+**Examples:**
+```bash
+# Start an interactive chat session
+fn_ask_ai
+
+# Show help message
+fn_ask_ai --help
+```
+
+**Troubleshooting:**
+- "jq: command not found" - Install with: `sudo pacman -S jq`
+- "curl: command not found" - Install with: `sudo pacman -S curl`
+- "OPENROUTER_API_KEY not set" - Ensure it's exported in your shell configuration
+- "Error: Network error" - Check your internet connection or proxy settings
+- "API Error: ..." - Verify your API key and account status at [OpenRouter](https://openrouter.ai/keys)
+
+**Notes:**
+- Uses the `deepseek/deepseek-r1-0528-qwen3-8b:free` model by default
+- Conversation history is maintained in memory during the session
+- API key is never logged or displayed
+- All API communication is encrypted (HTTPS)
+- Error messages are displayed in red for better visibility
 
 #### fn_init_repo
 
