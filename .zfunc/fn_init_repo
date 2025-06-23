@@ -3,7 +3,7 @@
 fn_init_repo() {
   local repo_name="${1:-./}"
   local template_dir="$HOME/templates"
-  
+
   local usage=(
     "Usage: fn_init_repo [repo_name]"
     ""
@@ -35,6 +35,10 @@ fn_init_repo() {
 
   if [[ -f "$template_dir/.dockerignore" ]]; then
     cp "$template_dir/.dockerignore" . || printf "Warning: .dockerignore not found in %s\n" "$template_dir"
+  fi
+
+  if [[ -f "$template_dir/.editorconfig" ]]; then
+    cp "$template_dir/.editorconfig" . || printf "Warning: .editorconfig not found in %s\n" "$template_dir"
   fi
 
   printf "Copied template files from: %s\n" "$template_dir"
