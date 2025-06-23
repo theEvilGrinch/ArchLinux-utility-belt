@@ -7,6 +7,7 @@ A comprehensive collection of template files for system configurations and devel
 - [Development Workflow](#development-workflow)
   - [Git](#git)
   - [Docker](#docker)
+  - [Code Formatting](#code-formatting)
 - [Office Documents](#office-documents)
 - [Automation](#automation)
 
@@ -52,6 +53,13 @@ A comprehensive collection of template files for system configurations and devel
 - Excludes development dependencies and build artifacts
 - Prevents unnecessary files from being copied to images
 - Optimized for Node.js projects and common development tools
+
+### Code Formatting
+`.editorconfig` - EditorConfig template for consistent code formatting
+- Defines coding styles that work across different editors and IDEs
+- Standardizes indentation, line endings, and character encoding
+- Includes special rules for Markdown files
+- Ensures consistent formatting across development teams
 
 ## Office Documents
 `libreoffice.ott` - LibreOffice text document template

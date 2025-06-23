@@ -102,6 +102,7 @@ ArchLinux-utility-belt/
 ├── templates/                      # Production-ready file templates
 │   ├── Dockerfile                  # Node.js Alpine template
 │   ├── docker-compose.yaml         # Multi-container setup
+│   ├── .editorconfig               # Code formatting configuration
 │   ├── .dockerignore               # Docker ignore patterns
 │   ├── desktop-file.desktop        # Application launcher template
 │   ├── example-system.service      # System service template
