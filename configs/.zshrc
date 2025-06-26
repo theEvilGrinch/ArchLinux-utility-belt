@@ -92,5 +92,7 @@ alias e="mcedit"
 alias b="btop"
 alias td="mktemp -d -p ."
 alias tf="mktemp -p ."
+alias tg="tar -czvf"
+alias utg="tar -xzvf"
 
 unsetopt nomatch
