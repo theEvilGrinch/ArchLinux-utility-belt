@@ -582,7 +582,11 @@ FodyWeavers.xsd
 # AI
 .junie/
 .windsurfrules
-.lingma
+.lingma/
+.windsurf/
+.github/
 # Other
 .tern-port
 .dynamodb/
+###
+tmp/

@@ -32,7 +32,7 @@ A comprehensive collection of template files for system configurations and devel
 - Can be set as default template: `git config --global commit.template "$HOME/templates/git-commit-template_en.txt"`
 
 `git-commit-template_ru.txt` - Structured git commit message template with Russian annotations
-- Same structure and features as English version
+- Same structure and features as an English version
 - Includes Russian comments and guidelines
 - Can be set as default template: `git config --global commit.template "$HOME/templates/git-commit-template_ru.txt"`
 
