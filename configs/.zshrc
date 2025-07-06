@@ -39,7 +39,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
 
 # Oh my zsh
 ZSH_THEME="jonathan"
-plugins=(git sudo web-search)
+plugins=(git sudo web-search golang)
 source $ZSH/oh-my-zsh.sh
 
 # System
@@ -53,7 +53,8 @@ alias update_mirrorlist='sudo reflector --country Russia,Germany,Netherlands --s
 alias update_fonts="sudo fc-cache -fv && fc-cache -f -v"
 alias off="sudo shutdown --no-wall"
 alias rb="sudo systemctl reboot"
-
+alias allow_localhost3000="sudo ufw allow from 192.168.1.0/24 to any port 3000"
+alias disallow_localhost3000="sudo ufw delete allow from 192.168.1.0/24 to any port 3000"
 # PKG's
 alias pmr='sudo pacman -Rns'
 alias pm_check_orphans="pacman -Qdtq"
