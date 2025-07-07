@@ -590,3 +590,4 @@ FodyWeavers.xsd
 .dynamodb/
 ###
 tmp/
+!.gitkeep
