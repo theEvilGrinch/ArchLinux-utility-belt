@@ -585,6 +585,7 @@ FodyWeavers.xsd
 .lingma/
 .windsurf/
 .github/
+GEMINI.md
 # Other
 .tern-port
 .dynamodb/

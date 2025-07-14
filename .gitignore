@@ -584,6 +584,7 @@ FodyWeavers.xsd
 .windsurfrules
 .lingma/
 .windsurf/
+GEMINI.md
 .github/
 # Other
 .tern-port
