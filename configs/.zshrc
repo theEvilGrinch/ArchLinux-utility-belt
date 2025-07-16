@@ -6,8 +6,6 @@ source $HOME/.env
 source $HOME/.env_priv
 set +a
 
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
 source /usr/share/nvm/init-nvm.sh
 
 path+=(
@@ -25,8 +23,6 @@ typeset -U path
 
 export PATH
 
-source $ZSH/oh-my-zsh.sh
-
 for file in $HOME/.zfunc/*; do
   autoload -Uz ${file:t}
 done
@@ -40,7 +36,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
 # Oh my zsh
 ZSH_THEME="jonathan"
 plugins=(git sudo web-search golang)
-source $ZSH/oh-my-zsh.sh
 
 # System
 alias zconf="mcedit ~/.zshrc"
@@ -97,3 +92,5 @@ alias tg="tar -czvf"
 alias utg="tar -xzvf"
 
 unsetopt nomatch
+
+source $ZSH/oh-my-zsh.sh
