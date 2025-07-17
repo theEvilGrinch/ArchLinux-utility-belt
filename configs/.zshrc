@@ -12,7 +12,6 @@ path+=(
     $HOME/.local/bin
     $HOME/go/bin
     $JAVA_HOME/bin
-    $PYENV_ROOT/bin
     /usr/bin
     $HOME/.local/bin
 )
@@ -32,11 +31,14 @@ zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
+zstyle ':completion:*' file-patterns '%p:globbed-files *(-/):directories'
+zstyle ':completion:*' rehash true
 
 # Oh my zsh
 ZSH_THEME="jonathan"
 plugins=(git sudo web-search golang)
-
+source $ZSH/oh-my-zsh.sh
+compinit -i
 # System
 alias zconf="mcedit ~/.zshrc"
 alias clear_swap="sudo swapoff -a && sudo swapon -a"
@@ -92,5 +94,3 @@ alias tg="tar -czvf"
 alias utg="tar -xzvf"
 
 unsetopt nomatch
-
-source $ZSH/oh-my-zsh.sh
