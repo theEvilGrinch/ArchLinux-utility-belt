@@ -1,6 +1,13 @@
 # $HOME/.zshrc
 export ZSH="$HOME/.oh-my-zsh"
 
+
+# Oh my zsh
+ZSH_THEME="jonathan"
+#plugins=(git sudo web-search golang)
+plugins=(git sudo golang)
+source $ZSH/oh-my-zsh.sh
+
 set -a
 source $HOME/.env
 source $HOME/.env_priv
@@ -13,7 +20,6 @@ path+=(
     $HOME/go/bin
     $JAVA_HOME/bin
     /usr/bin
-    $HOME/.local/bin
 )
 
 fpath+=($HOME/.zfunc)
@@ -34,11 +40,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/sbin /sbin $path
 zstyle ':completion:*' file-patterns '%p:globbed-files *(-/):directories'
 zstyle ':completion:*' rehash true
 
-# Oh my zsh
-ZSH_THEME="jonathan"
-plugins=(git sudo web-search golang)
-source $ZSH/oh-my-zsh.sh
-compinit -i
 # System
 alias zconf="mcedit ~/.zshrc"
 alias clear_swap="sudo swapoff -a && sudo swapon -a"
@@ -52,6 +53,7 @@ alias off="sudo shutdown --no-wall"
 alias rb="sudo systemctl reboot"
 alias allow_localhost3000="sudo ufw allow from 192.168.1.0/24 to any port 3000"
 alias disallow_localhost3000="sudo ufw delete allow from 192.168.1.0/24 to any port 3000"
+
 # PKG's
 alias pmr='sudo pacman -Rns'
 alias pm_check_orphans="pacman -Qdtq"
@@ -92,5 +94,3 @@ alias td="mktemp -d -p ."
 alias tf="mktemp -p ."
 alias tg="tar -czvf"
 alias utg="tar -xzvf"
-
-unsetopt nomatch

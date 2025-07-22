@@ -14,7 +14,7 @@ function web_search() {
     duckduckgo      "https://www.duckduckgo.com/?q="
     startpage       "https://www.startpage.com/do/search?q="
     yandex          "https://yandex.ru/yandsearch?text="
-    yx_translate	"https://translate.yandex.ru/?source_lang=ru&target_lang=en&text="
+    yx_translate    "https://translate.yandex.ru/?source_lang=ru&target_lang=en&text="
     github          "https://github.com/search?q="
     baidu           "https://www.baidu.com/s?wd="
     ecosia          "https://www.ecosia.org/search?q="
@@ -33,7 +33,7 @@ function web_search() {
     packagist       "https://packagist.org/?query="
     gopkg           "https://pkg.go.dev/search?m=package&q="
     chatgpt         "https://chatgpt.com/?q="
-    perplexity		"https://www.perplexity.ai/search/?q="
+    perplexity      "https://www.perplexity.ai/search/?q="
     reddit          "https://www.reddit.com/search/?q="
   )
 
@@ -71,7 +71,7 @@ alias yahoo='web_search yahoo'
 alias ddg='web_search duckduckgo'
 alias sp='web_search startpage'
 alias yx='web_search yandex'
-alias github='web_search github'
+alias ghs='web_search github'
 alias baidu='web_search baidu'
 alias ecosia='web_search ecosia'
 alias goodreads='web_search goodreads'
